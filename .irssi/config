@@ -267,9 +267,6 @@ settings = {
   core = { real_name = "henryb"; user_name = "hbw"; nick = "hbw"; };
   "fe-text" = { actlist_sort = "refnum"; scrollback_lines = "0"; };
   "fe-common/core" = { autolog = "yes"; };
-  "perl/core/scripts" = {
-    autorejoin_channels = "#swag #parp #georgewashingtonnevertoldalie";
-  };
   "irc/core" = { lag_max_before_disconnect = "1min"; };
 };
 logs = { };
