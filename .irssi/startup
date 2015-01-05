@@ -1,0 +1,15 @@
+script exec \$ENV{'TZ'}='America/Los_Angeles'\;
+
+script load uberprompt.pl
+script load vim_mode.pl
+script load autorejoin.pl
+script load per_window_prompt.pl
+
+statusbar prompt visible active
+statusbar prompt type window
+
+statusbar topic type window
+
+statusbar window_inact disable
+statusbar window_inact type root
+

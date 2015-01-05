@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/hbw/doc/resume'
+let g:netrw_dirhist_2='/mnt/ohnoes/src/projects/oxidizer'
+let g:netrw_dirhist_3='/home/hbw/.vimperator'
+let g:netrw_dirhist_4='/mnt/ohnoes/src/projects/i3/src'
