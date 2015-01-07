@@ -17,19 +17,34 @@ source $HOME/.vim/bundle/matchit/plugin/matchit.vim
 " For the CtrlP plugin
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|build)$',
+  \ 'file': '\v\.(so|swp|o)$',
+  \ }
 
 "
 " Theming
 "
 
-colorscheme desert
+colorscheme slate
 syntax on
 set number
 set cmdheight=1
-set cursorline
+set nocursorline
 set nohlsearch
 set laststatus=2
+
+" Taken from http://stackoverflow.com/a/10416234
+set statusline=
+set statusline+=\[%n]                                  "buffernr
+set statusline+=\ %<%F                                 "File+path
+set statusline+=\ %y                                   "FileType
+set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..) 
+set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+set statusline+=\ col:%03c\                            "Colnr
+set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly?  Top/bot.
 
 " I want splits to open up the way I read: left-to-right, top-to-bottom
 set splitright
@@ -92,9 +107,6 @@ map <silent> <PageDown> 1000<C-D>
 imap <silent> <PageUp> <C-O>1000<C-U>
 imap <silent> <PageDown> <C-O>1000<C-D>
 
-" Enable mouse
-set mouse=a
-
 " Often I hold shift too long when issuing these commands
 " (adapted from http://www2.mathematik.hu-berlin.de/~altmeyrx/BZQ/vimrc)
 command! Q q
@@ -108,13 +120,17 @@ command! Bd bd
 " Never use Ex mode -- I never *mean* to press it
 nnoremap Q <ESC>
 
+set mouse=a
+
 "
 " Formatting
 "
 
 " The C file plugin resets whatever formatoptions we specify here, so we need
 " to set this to trigger on buffer load events instead.
-autocmd BufNewFile,BufRead * setlocal formatoptions=cqlj
+autocmd BufNewFile,BufRead * setlocal formatoptions=cql
+
+au BufRead,BufNewFile *.h set filetype=c
 
 set textwidth=80
 
@@ -136,11 +152,8 @@ set cinoptions+=l1
 set cinoptions+=jN,JN  " Fixes for Java/JavaScript indentation
 
 " Settings for coding styles that prefer certain constructs be unindented
-set cinoptions+=N-s  " Don't indent namespace blocks
-set cinoptions+=g0  " Don't indent C++ class scope declarations
-set cinoptions+=:s  " Indent case labels
+set cinoptions+=:0  " Indent case labels
 set cinoptions+=t0  " Don't indent function return type declaration
-set cinoptions+=i4  " Always indent C++ initializers/base classes by 4 spaces
 
 " Normally we don't want line wrapping, so disable it for everything but plain
 " text and files with no file type (which are probably also plain text).
@@ -150,35 +163,6 @@ autocmd FileType * if !empty(&filetype) && &filetype != "text" | set nowrap
 set linebreak
 set nostartofline
 set display+=lastline
-
-"
-" Paste settings
-"
-
-" Use + register whenever possible
-if has('unnamedplus')
-    set clipboard=unnamedplus
-else
-    set clipboard=unnamed
-endif
-
-"
-" GVim settings
-"
-
-if has("gui_running")
-    set guifont=Consolas\ 10
-    set linespace=1
-
-    set mousehide  " Hide the mouse pointer while typing
-
-    " No scrollbars or toolbars
-    set guioptions-=T
-    set guioptions-=m
-    set guioptions-=r
-    set guioptions-=L
-endif
-
 "
 " Miscellaneous settings
 "
