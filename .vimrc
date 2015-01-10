@@ -18,33 +18,46 @@ source $HOME/.vim/bundle/matchit/plugin/matchit.vim
 let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|build)$',
+  \ 'dir':  '\v[\/]\.(git|hg)$',
   \ 'file': '\v\.(so|swp|o)$',
   \ }
+
+" For the Tagbar plugin
+nmap <leader>t :TagbarToggle<CR>
 
 "
 " Theming
 "
 
 colorscheme slate
+highlight Function ctermfg=222
+highlight Include ctermfg=167
+highlight Operator ctermfg=167
 syntax on
 set number
 set cmdheight=1
-set nocursorline
 set nohlsearch
 set laststatus=2
 
-" Taken from http://stackoverflow.com/a/10416234
+" Make cursorline only show up on the currently focused window
+set cursorline
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+
+" Inspired by http://stackoverflow.com/a/10416234 and Powerline
 set statusline=
-set statusline+=\[%n]                                  "buffernr
-set statusline+=\ %<%F                                 "File+path
-set statusline+=\ %y                                   "FileType
-set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
-set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
-set statusline+=\ %{&ff}\                              "FileFormat (dos/unix..) 
-set statusline+=\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
-set statusline+=\ col:%03c\                            "Colnr
-set statusline+=\ \ %m%r%w\ %P\ \                      "Modified? Readonly?  Top/bot.
+set statusline+=[%n]                                   " Buffer number
+set statusline+=\ %{&paste?'--PASTE--':''}\ >\         " Paste mode indicator
+set statusline+=\ %<%F                                 " File+path
+set statusline+=\ %m%r%w\                              " Modified? Readonly?
+set statusline+=%=                                     " Separator
+set statusline+=\ %y\ <                                " FileType
+set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      " Encoding
+set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            " Encoding2
+set statusline+=\ %{&ff}\ <                            " FileFormat (dos/unix..)
+set statusline+=\ %p%\%\ :                             " Percentage
+set statusline+=\ line\ %l/%L\ :                       " Row/total
+set statusline+=\ col\ %c\                             " Column
 
 " I want splits to open up the way I read: left-to-right, top-to-bottom
 set splitright
@@ -85,8 +98,6 @@ nmap <leader>O O<ESC>
 
 " Toggle autocomment mode (normally I don't like it, but it's really helpful
 " when writing multiline C block comments, for example)
-imap <C-s> <ESC>:set formatoptions+=ro<CR>a
-imap <C-d> <ESC>:set formatoptions-=ro<CR>a
 nmap <leader>s <ESC>:set formatoptions+=ro formatoptions?<CR>
 nmap <leader>d <ESC>:set formatoptions-=ro formatoptions?<CR>
 
@@ -129,10 +140,12 @@ set mouse=a
 " The C file plugin resets whatever formatoptions we specify here, so we need
 " to set this to trigger on buffer load events instead.
 autocmd BufNewFile,BufRead * setlocal formatoptions=cql
-
 au BufRead,BufNewFile *.h set filetype=c
 
 set textwidth=80
+"if exists('+colorcolumn')
+"    set colorcolumn=+1
+"endif
 
 " Tab settings
 set shiftwidth=4
@@ -145,6 +158,9 @@ set noautoindent
 set nosmartindent
 set cindent
 
+" Indents lines inside parens to the column where the starting paren is
+set cinoptions=(0,w0,W4
+
 " Indent statements in cases relative to the case labels (this is confusing;
 " see the vim documentation for the lN setting for an example).
 set cinoptions+=l1
@@ -155,7 +171,7 @@ set cinoptions+=jN,JN  " Fixes for Java/JavaScript indentation
 set cinoptions+=:0  " Indent case labels
 set cinoptions+=t0  " Don't indent function return type declaration
 
-" Normally we don't want line wrapping, so disable it for everything but plain
+" Normally I don't want line wrapping, so disable it for everything but plain
 " text and files with no file type (which are probably also plain text).
 set wrap
 autocmd FileType * if !empty(&filetype) && &filetype != "text" | set nowrap
@@ -163,12 +179,14 @@ autocmd FileType * if !empty(&filetype) && &filetype != "text" | set nowrap
 set linebreak
 set nostartofline
 set display+=lastline
+
 "
 " Miscellaneous settings
 "
 
 set nocompatible
 set history=100
+set printoptions=syntax:y,wrap:y
 
 " Don't keep around the backup file on success
 set writebackup
@@ -183,10 +201,5 @@ set showfulltag
 set ignorecase
 set smartcase
 
-" Settings for modified buffers
 set hidden  " Keep around modified buffers without having to save them
 set confirm  " Ask instead of autofailing when doing a destructive action
-
-set visualbell  " No sounds please
-set printoptions=syntax:y,wrap:y
-
