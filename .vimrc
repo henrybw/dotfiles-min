@@ -49,6 +49,7 @@ highlight clear Special
 highlight link Special String
 highlight Error ctermfg=red ctermbg=0
 highlight StatusLine term=reverse ctermfg=36 ctermbg=16 gui=bold
+highlight ColorColumn term=reverse ctermbg=36
 
 set number
 set cmdheight=1
