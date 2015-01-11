@@ -48,6 +48,7 @@ highlight Constant ctermfg=37
 highlight clear Special
 highlight link Special String
 highlight Error ctermfg=red ctermbg=0
+highlight StatusLine term=reverse ctermfg=36 ctermbg=16 gui=bold
 
 set number
 set cmdheight=1
@@ -69,7 +70,7 @@ set statusline+=%=                                     " Separator
 set statusline+=\ %y\ <                                " FileType
 set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      " Encoding
 set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            " Encoding2
-set statusline+=\ %{&ff}\ <                            " FileFormat (dos/unix..)
+set statusline+=\ [%{&ff}]\ <                          " FileFormat (dos/unix..)
 set statusline+=\ %p%\%\ :                             " Percentage
 set statusline+=\ line\ %l/%L\ :                       " Row/total
 set statusline+=\ col\ %c\                             " Column
