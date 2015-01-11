@@ -30,10 +30,25 @@ nmap <leader>t :TagbarToggle<CR>
 "
 
 colorscheme slate
-highlight Function ctermfg=222
-highlight Include ctermfg=167
-highlight Operator ctermfg=167
+
+" For some reason, the syntax highlighting overwrites the definition for
+" certain highlight groups, so we specify them after we've turned on
+" syntax highlighting.
 syntax on
+highlight Comment ctermfg=14
+highlight Identifier ctermfg=14
+highlight Statement ctermfg=11
+highlight PreProc ctermfg=81
+highlight Type ctermfg=121
+highlight Function ctermfg=33
+highlight Include ctermfg=166
+highlight Operator ctermfg=64
+highlight Structure ctermfg=10
+highlight Constant ctermfg=37
+highlight clear Special
+highlight link Special String
+highlight Error ctermfg=red ctermbg=0
+
 set number
 set cmdheight=1
 set nohlsearch
