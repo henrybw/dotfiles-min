@@ -52,6 +52,8 @@ highlight StatusLine term=reverse ctermfg=36 ctermbg=16 gui=bold
 highlight ColorColumn term=reverse ctermbg=36
 highlight clear CursorLine
 highlight CursorLine term=reverse ctermbg=236
+highlight clear Search
+highlight Search cterm=reverse ctermfg=248
 
 set number
 set cmdheight=1
