@@ -53,7 +53,7 @@ highlight ColorColumn term=reverse ctermbg=36
 highlight clear CursorLine
 highlight CursorLine term=reverse ctermbg=236
 highlight clear Search
-highlight Search cterm=reverse ctermfg=248
+highlight Search cterm=reverse ctermfg=51
 
 set number
 set cmdheight=1
