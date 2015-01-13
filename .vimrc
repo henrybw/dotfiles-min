@@ -11,6 +11,7 @@ execute pathogen#helptags()
 filetype plugin indent on
 
 " Enable plugins that need to be manually run
+source $HOME/.vim/bundle/cscope/cscope_maps.vim
 source $HOME/.vim/bundle/closetag/closetag.vim
 source $HOME/.vim/bundle/matchit/plugin/matchit.vim
 
