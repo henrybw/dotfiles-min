@@ -10,8 +10,15 @@ execute pathogen#helptags()
 " Pathogen only re-enables filetype detection; it won't re-enable plugin/indent
 filetype plugin indent on
 
+" Set up cscope plugin if we don't have a cscope database already
+redir => s:has_cscope_database
+silent cs show
+redir END
+if substitute(s:has_cscope_database, '^\n*\(.\{-}\)\n*$', '\1', '') == "no cscope connections"
+    source $HOME/.vim/bundle/cscope/cscope_maps.vim
+endif
+
 " Enable plugins that need to be manually run
-source $HOME/.vim/bundle/cscope/cscope_maps.vim
 source $HOME/.vim/bundle/closetag/closetag.vim
 source $HOME/.vim/bundle/matchit/plugin/matchit.vim
 
@@ -71,7 +78,8 @@ set statusline=
 set statusline+=[%n]                                   " Buffer number
 set statusline+=\ %{&paste?'--PASTE--':''}\ >\         " Paste mode indicator
 set statusline+=\ %<%F                                 " File+path
-set statusline+=\ %m%r%w\                              " Modified? Readonly?
+set statusline+=\ %m%r%w                               " Modified? Readonly?
+set statusline+=\ %{tagbar#currenttag('%f',\ '')}      " Current tag
 set statusline+=%=                                     " Separator
 set statusline+=\ %y\ <                                " FileType
 set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      " Encoding
