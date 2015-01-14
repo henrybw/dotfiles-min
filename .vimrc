@@ -79,7 +79,7 @@ set statusline+=[%n]                                   " Buffer number
 set statusline+=\ %{&paste?'--PASTE--':''}\ >\         " Paste mode indicator
 set statusline+=\ %<%F                                 " File+path
 set statusline+=\ %m%r%w                               " Modified? Readonly?
-set statusline+=\ %{tagbar#currenttag('%f',\ '')}      " Current tag
+set statusline+=\ %{tagbar#currenttag('%s',\ '')}      " Current tag
 set statusline+=%=                                     " Separator
 set statusline+=\ %y\ <                                " FileType
 set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      " Encoding
