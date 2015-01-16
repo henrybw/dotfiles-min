@@ -73,21 +73,9 @@ set cursorline
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 
-" Inspired by http://stackoverflow.com/a/10416234 and Powerline
-set statusline=
-set statusline+=[%n]                                   " Buffer number
-set statusline+=\ %{&paste?'--PASTE--':''}\ >\         " Paste mode indicator
-set statusline+=\ %<%F                                 " File+path
-set statusline+=\ %m%r%w                               " Modified? Readonly?
-set statusline+=\ %{tagbar#currenttag('%s',\ '')}      " Current tag
-set statusline+=%=                                     " Separator
-set statusline+=\ %y\ <                                " FileType
-set statusline+=\ %{''.(&fenc!=''?&fenc:&enc).''}      " Encoding
-set statusline+=\ %{(&bomb?\",BOM\":\"\")}\            " Encoding2
-set statusline+=\ [%{&ff}]\ <                          " FileFormat (dos/unix..)
-set statusline+=\ %p%\%\ :                             " Percentage
-set statusline+=\ line\ %l/%L\ :                       " Row/total
-set statusline+=\ col\ %c\                             " Column
+" Enable airline
+let g:airline_theme = 'powerlineish'
+let g:airline_powerline_fonts = 1
 
 " I want splits to open up the way I read: left-to-right, top-to-bottom
 set splitright
