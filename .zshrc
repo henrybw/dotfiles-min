@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="rkj-repos"
+ZSH_THEME="flazz-twoline"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -20,7 +20,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -45,7 +45,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(vi-mode)
 
 # User configuration
 
@@ -81,6 +81,16 @@ source $ZSH/oh-my-zsh.sh
 
 #-------------------------------------------------------------------------------
 
+alias ls='ls --color'
+alias la='ls -a'
+alias lla='ls -la'
+alias info="info --vi-keys"
+alias grep='grep --color=always'
+alias egrep='egrep --color=always'
+alias tmux='tmux -2'
+alias cgdb='TERM=screen-256color cgdb'
+alias lag='ag --pager=less'
+
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
@@ -101,6 +111,7 @@ unsetopt sharehistory
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+zstyle ':urlglobber' url-other-schema  # url-quote-magic is fucking annoying
 
 autoload select-word-style
 select-word-style shell
@@ -112,5 +123,5 @@ eval $(ssh-agent) > /dev/null;
 stty stop undef
 stty start undef
 
-source ~/.zshfunc
-source ~/.common
+source ~/.zshrc.clx
+source ~/.profile.clx
