@@ -204,7 +204,7 @@ set display+=lastline
 if exists('+breakindent')
     set breakindent
     set breakindentopt=shift:2
-fi
+endif
 
 "
 " Miscellaneous settings
