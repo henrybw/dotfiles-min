@@ -151,19 +151,21 @@ nnoremap Q <ESC>
 
 set mouse=a
 
+" Fix weird 223-char terminal limit to be unlimited
+if has('mouse_sgr')
+    set ttymouse=sgr
+endif
+
 "
 " Formatting
 "
 
 " The C file plugin resets whatever formatoptions we specify here, so we need
 " to set this to trigger on buffer load events instead.
-autocmd BufNewFile,BufRead * setlocal formatoptions=cql
+autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
 au BufRead,BufNewFile *.h set filetype=c
 
 set textwidth=80
-"if exists('+colorcolumn')
-"    set colorcolumn=+1
-"endif
 
 " Tab settings
 set shiftwidth=4
@@ -197,6 +199,12 @@ autocmd FileType * if !empty(&filetype) && &filetype != "text" | set nowrap
 set linebreak
 set nostartofline
 set display+=lastline
+
+" Better wrapping for bulleted lists
+if exists('+breakindent')
+    set breakindent
+    set breakindentopt=shift:2
+fi
 
 "
 " Miscellaneous settings

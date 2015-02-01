@@ -18,7 +18,7 @@ stty -ixon
 source ~/.profile.clx
 
 if [ -x /bin/zsh ]; then
-    exec /bin/zsh -l
+    SHELL=/bin/zsh exec /bin/zsh -l
 else
     export PS1="[\u@\h] - [\w]\n[\$?] \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi)\[\033[00m\] \$ "
     complete -cf sudo  # Enable autocompletion in sudo
