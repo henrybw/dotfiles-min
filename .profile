@@ -15,8 +15,6 @@ fortune hitchhiker | cowsay -f dragon-and-cow
 ulimit -c unlimited  # Unlimited core files
 stty -ixon
 
-source ~/.profile.clx
-
 if [ -x /bin/zsh ]; then
     SHELL=/bin/zsh exec /bin/zsh -l
 else

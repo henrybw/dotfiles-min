@@ -127,6 +127,3 @@ select-word-style shell
 
 stty stop undef
 stty start undef
-
-source ~/.zshrc.clx
-source ~/.profile.clx

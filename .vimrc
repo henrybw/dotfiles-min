@@ -27,7 +27,7 @@ let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg)$',
-  \ 'file': '\v\.(so|swp|o)$',
+  \ 'file': '\v\.(pyc|so|swp|o)$',
   \ }
 
 " For the Tagbar plugin
