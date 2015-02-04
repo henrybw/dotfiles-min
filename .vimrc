@@ -165,8 +165,6 @@ endif
 autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
 au BufRead,BufNewFile *.h set filetype=c
 
-set textwidth=80
-
 " Tab settings
 set shiftwidth=4
 set tabstop=4
@@ -191,11 +189,6 @@ set cinoptions+=jN,JN  " Fixes for Java/JavaScript indentation
 set cinoptions+=:0  " Indent case labels
 set cinoptions+=t0  " Don't indent function return type declaration
 
-" Normally I don't want line wrapping, so disable it for everything but plain
-" text and files with no file type (which are probably also plain text).
-set wrap
-autocmd FileType * if !empty(&filetype) && &filetype != "text" | set nowrap
-
 set linebreak
 set nostartofline
 set display+=lastline
@@ -205,6 +198,21 @@ if exists('+breakindent')
     set breakindent
     set breakindentopt=shift:2
 endif
+
+" Normally I don't want line wrapping, so disable it for everything but plain
+" text and files with no file type (which are probably also plain text). Of
+" course, since vimscript is a pile of shit, we have to do this with a custom
+" function instead of embedding a conditional in the autocmd...
+fun! SetFiletypeConditionalConfig()
+    if empty(&filetype) || &filetype == "text"
+        set wrap
+        set textwidth=0
+    else
+        set nowrap
+        set textwidth=80
+    endif
+endfun
+autocmd FileType * call SetFiletypeConditionalConfig()
 
 "
 " Miscellaneous settings
