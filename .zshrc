@@ -119,6 +119,7 @@ unsetopt sharehistory
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 zle -A .self-insert self-insert
 
 autoload select-word-style
