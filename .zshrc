@@ -9,7 +9,6 @@ autoload colors; colors;
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 setopt auto_cd
 setopt multios
-setopt cdablevars
 setopt prompt_subst
 
 ## Command history configuration
