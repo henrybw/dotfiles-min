@@ -30,9 +30,6 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(pyc|so|swp|o)$',
   \ }
 
-" For the Tagbar plugin
-nmap <leader>t :TagbarToggle<CR>
-
 "
 " Theming
 "
