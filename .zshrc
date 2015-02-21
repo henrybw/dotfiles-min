@@ -7,6 +7,7 @@
 # Color config
 autoload colors; colors;
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export LS_COLORS=""
 setopt auto_cd
 setopt multios
 setopt prompt_subst
