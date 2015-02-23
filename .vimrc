@@ -30,6 +30,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(pyc|so|swp|o)$',
   \ }
 
+" Load custom mappings for bufkill
+let g:BufKillCreateMappings = 1
+
 "
 " Theming
 "
