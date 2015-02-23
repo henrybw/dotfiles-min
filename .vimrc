@@ -86,6 +86,9 @@ set t_Co=256
 " Keys/Controls
 "
 
+" Spacebar >>> \ as a leader key
+let mapleader="\<Space>"
+
 " Shortcuts for cycling buffers
 nnoremap <leader>[ :bp<CR>
 nnoremap <leader>] :bn<CR>
