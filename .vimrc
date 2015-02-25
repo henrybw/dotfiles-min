@@ -81,6 +81,9 @@ let g:airline_powerline_fonts = 1
 set splitright
 set splitbelow
 
+" Make diff windows open as vertical splits by default
+set diffopt=filler,vertical
+
 " Some special magic to get full 256 colors working in terminals
 set t_ut=
 set t_Co=256
