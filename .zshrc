@@ -161,6 +161,7 @@ alias egrep='egrep --color=always'
 alias tmux='tmux -2'
 alias irssi='TERM=screen-256color irssi'
 alias cgdb='TERM=screen-256color cgdb'
+alias htop='TERM=screen-256color htop'
 alias g='git'
 alias lag='ag --pager=less'
 alias alert='echo -ne "\a"';
