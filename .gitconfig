@@ -1,0 +1,16 @@
+[user]
+	name = Henry Baba-Weiss
+	email = henry.babaweiss@gmail.com
+[core]
+	editor = vim
+[color]
+	ui = true
+	branch = true
+	interactive = true
+	status = true
+[alias]
+	lol = log --pretty=oneline --abbrev-commit --graph --decorate
+[diff]
+    tool = vimdiff
+[branch]
+	autosetuprebase = always
