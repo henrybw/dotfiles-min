@@ -12,7 +12,6 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export LS_COLORS=""
 setopt auto_cd
 setopt multios
-setopt prompt_subst
 
 #
 # Command history configuration
@@ -59,25 +58,7 @@ zle -N zle-line-finish
 zle -N zle-keymap-select
 zle -N edit-command-line
 
-bindkey -v
-
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
-
-# Make sure that the terminal is in application mode when zle is active, since
-# only then values from $terminfo are valid
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-  function zle-line-init() {
-    echoti smkx
-  }
-  function zle-line-finish() {
-    echoti rmkx
-  }
-  zle -N zle-line-init
-  zle -N zle-line-finish
-fi
-
+bindkey -v                                            # vi mode
 bindkey '\ew' kill-region                             # [Esc-w] - Kill from the cursor to the mark
 bindkey -s '\el' 'ls\n'                               # [Esc-l] - run command: ls
 bindkey '^r' history-incremental-search-backward      # [Ctrl-r] - Search backward incrementally for a specified string. The string may begin with ^ to anchor the search to the beginning of the line.
@@ -102,8 +83,6 @@ if [[ "${terminfo[kend]}" != "" ]]; then
   bindkey "${terminfo[kend]}"  end-of-line            # [End] - Go to end of line
 fi
 
-bindkey ' ' magic-space                               # [Space] - do history expansion
-
 bindkey '^[[1;5C' forward-word                        # [Ctrl-RightArrow] - move forward one word
 bindkey '^[[1;5D' backward-word                       # [Ctrl-LeftArrow] - move backward one word
 
@@ -125,23 +104,39 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
-function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
-}
-
 #
 # Prompt config
 #
 
-local return_code="%(?.%{$fg_bold[green]%}✔ %{$fg[green]%}0 %{$reset_color%}.%{$fg_bold[red]%}✘ %{$fg[red]%}%? %{$reset_color%})"
+setopt promptsubst
 
-PS1='%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]
-${return_code}%{${fg_bold[blue]}%}$%{${reset_color}%} '
+# Vi mode indicator
+function vi_mode_prompt_info() {
+    local MODE_INDICATOR="%{$fg_bold[magenta]%}<%{$reset_color%}%{$fg[magenta]%}<<%{$reset_color%}"
+    echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
+}
 
-RPS1='$(vi_mode_prompt_info)'
-MODE_INDICATOR="%{$fg_bold[magenta]%}<%{$reset_color%}%{$fg[magenta]%}<<%{$reset_color%}"
+# Get the name of the branch we are on
 
+function git_branch() {
+    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [[ "$branch" ]]; then
+        echo " <$branch>"
+    fi
+}
 
+# Runs each time before the shell prompt is printed. We override this to allow
+# zshrc scripts source'd after this one to hook into the prompt by setting
+# $_status_ext. However, we don't allow the prompt itself to be extended because
+# that causes too many strange issues with redrawing and such.
+function precmd() {
+    local _return_code="%(?.%{$fg_bold[green]%}✔ %{$fg[green]%}0 %{$reset_color%}.%{$fg_bold[red]%}✘ %{$fg[red]%}%? %{$reset_color%})"
+    PROMPT="%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_branch)$reset_color$_status_ext
+$_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
+    RPROMPT='$(vi_mode_prompt_info)'
+}
+
+# Set up completion
 autoload -U compinit
 compinit -i
 
