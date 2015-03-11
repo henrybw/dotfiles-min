@@ -116,12 +116,15 @@ function vi_mode_prompt_info() {
     echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
 }
 
-# Get the name of the branch we are on
-
-function git_branch() {
-    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+# Git branch/dirty indicator
+function git_status_info() {
+    local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
     if [[ "$branch" ]]; then
-        echo " <$branch>"
+        local git_status="$(git status --porcelain 2>/dev/null)"
+        if [ "$git_status" ]; then
+            local dirty="*";
+        fi
+        echo " <$branch$dirty>"
     fi
 }
 
@@ -131,7 +134,7 @@ function git_branch() {
 # that causes too many strange issues with redrawing and such.
 function precmd() {
     local _return_code="%(?.%{$fg_bold[green]%}✔ %{$fg[green]%}0 %{$reset_color%}.%{$fg_bold[red]%}✘ %{$fg[red]%}%? %{$reset_color%})"
-    PROMPT="%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_branch)$reset_color$_status_ext
+    PROMPT="%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_status_info)$reset_color$_status_ext
 $_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
     RPROMPT='$(vi_mode_prompt_info)'
 }
