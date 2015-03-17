@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export HISTFILE=$HOME/local/.bash_history
 export TERM=xterm-256color
 export CLICOLORS='Yes'
 export LESS='-R'
@@ -9,16 +10,16 @@ export GIT_EDITOR=vim
 export CLICOLOR='Yes'
 unset LS_COLORS  # By default these get messed up for some reason
 
-# Banner!
-fortune hitchhiker | cowsay -f dragon-and-cow
-
 ulimit -c unlimited  # Unlimited core files
 stty -ixon
 
-ZSH_PATH=$(which zsh)
-if [ -x $ZSH_PATH ]; then
-    SHELL=$ZSH_PATH exec $ZSH_PATH -l
+# Banner!
+if which fortune &> /dev/null && which cowsay &> /dev/null; then
+    fortune hitchhiker | cowsay -f dragon-and-cow
+fi
+
+if which zsh &> /dev/null && [ -z "$ZSH_VERSION" ]; then
+    SHELL="$ZSH_PATH" exec $ZSH_PATH -l
 else
     export PS1="[\u@\h] - [\w]\n[\$?] \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi)\[\033[00m\] \$ "
-    complete -cf sudo  # Enable autocompletion in sudo
 fi
