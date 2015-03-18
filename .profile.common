@@ -14,11 +14,12 @@ ulimit -c unlimited  # Unlimited core files
 stty -ixon
 
 # Banner!
-if which fortune &> /dev/null && which cowsay &> /dev/null; then
+if (which fortune &> /dev/null && which cowsay &> /dev/null); then
     fortune hitchhiker | cowsay -f dragon-and-cow
 fi
 
-if which zsh &> /dev/null && [ -z "$ZSH_VERSION" ]; then
+if (which zsh &> /dev/null) && [[ "$ZSH_VERSION" > 5 ]]; then
+    ZSH_PATH=$(which zsh)
     SHELL="$ZSH_PATH" exec $ZSH_PATH -l
 else
     export PS1="[\u@\h] - [\w]\n[\$?] \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi)\[\033[00m\] \$ "
