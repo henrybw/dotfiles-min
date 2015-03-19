@@ -18,7 +18,7 @@ if (which fortune &> /dev/null && which cowsay &> /dev/null); then
     fortune hitchhiker | cowsay -f dragon-and-cow
 fi
 
-if (which zsh &> /dev/null) && [[ "$(zsh --version)" > 5 ]]; then
+if (which zsh &> /dev/null) && [[ "$(zsh -c 'echo $ZSH_VERSION')" > 5 ]]; then
     ZSH_PATH=$(which zsh)
     SHELL="$ZSH_PATH" exec $ZSH_PATH -l
 else
