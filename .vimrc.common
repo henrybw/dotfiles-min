@@ -38,7 +38,7 @@ let g:BufKillCreateMappings = 1
 "
 
 syntax on
-colorscheme solstice
+colorscheme aurora
 
 set number
 set cmdheight=1
