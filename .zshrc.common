@@ -130,13 +130,15 @@ function git_status_info() {
 
 # Runs each time before the shell prompt is printed. We override this to allow
 # zshrc scripts source'd after this one to hook into the prompt by setting
-# $_status_ext. However, we don't allow the prompt itself to be extended because
+# $STATUS_EXT. However, we don't allow the prompt itself to be extended because
 # that causes too many strange issues with redrawing and such.
 function precmd() {
     local _return_code="%(?.%{$fg_bold[green]%}✔ %{$fg[green]%}0 %{$reset_color%}.%{$fg_bold[red]%}✘ %{$fg[red]%}%? %{$reset_color%})"
-    PROMPT="%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_status_info)$reset_color$_status_ext
-$_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
+    PROMPT="%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_status_info)$reset_color$STATUS_EXT"$'\n'
+    PROMPT="$PROMPT$_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
     RPROMPT='$(vi_mode_prompt_info)'
+    export PROMPT
+    export RPROMPT
 }
 
 # Set up completion
@@ -189,5 +191,7 @@ zle -A .self-insert self-insert
 autoload select-word-style
 select-word-style shell
 
+# Don't use Ctrl-S/Ctrl-Q for shell flow control
+setopt noflowcontrol
 stty stop undef
 stty start undef
