@@ -47,8 +47,8 @@ set laststatus=2
 
 " Make cursorline only show up on the currently focused window
 set cursorline
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
+autocmd BufEnter * setlocal cursorline
+autocmd BufLeave * setlocal nocursorline
 
 " Enable airline
 let g:airline_theme = 'powerlineish'
