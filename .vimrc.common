@@ -112,6 +112,17 @@ map zp :set invpaste paste?<CR>
 " Toggle search pattern hilighting and display the value
 map <leader>h :set hlsearch! hlsearch?<CR>
 
+" Toggle column guide
+fun! ToggleColorColumn()
+    if empty(&colorcolumn)
+        set colorcolumn=+1
+    else
+        set colorcolumn=
+    endif
+endfun
+imap <leader>\ <ESC>:call ToggleColorColumn()<CR>a
+nmap <leader>\ :call ToggleColorColumn()<CR>
+
 " Emulate some IDE-style editing behavior with backspace and shift-tab
 set backspace=indent,eol,start
 imap <S-Tab> <Esc><<i
