@@ -120,7 +120,6 @@ fun! ToggleColorColumn()
         set colorcolumn=
     endif
 endfun
-imap <leader>\ <ESC>:call ToggleColorColumn()<CR>a
 nmap <leader>\ :call ToggleColorColumn()<CR>
 
 " Emulate some IDE-style editing behavior with backspace and shift-tab
