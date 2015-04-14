@@ -127,7 +127,8 @@ function git_status_info() {
 # that causes too many strange issues with redrawing and such.
 function precmd() {
     local _return_code="%(?.%{$fg_bold[green]%}✔ %{$fg[green]%}0 %{$reset_color%}.%{$fg_bold[red]%}✘ %{$fg[red]%}%? %{$reset_color%})"
-    PROMPT="%{${fg[cyan]}%}[%n@%m] %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_status_info)$reset_color$STATUS_EXT"$'\n'
+    local _hostname_colored="%B%F{$(( ( $(hostname | cksum | cut -d\  -f1) ) / 7 % 7 ))}[%n@%m]%f%b"
+    PROMPT="%{${_hostname_colored}%} %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_status_info)$reset_color$STATUS_EXT"$'\n'
     PROMPT="$PROMPT$_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
     RPROMPT='$(vi_mode_prompt_info)'
     export PROMPT
