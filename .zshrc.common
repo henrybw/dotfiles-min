@@ -16,7 +16,7 @@ setopt multios
 #
 # Command history configuration
 #
-if [ -z "$HISTFILE" ]; then
+if [[ -z "$HISTFILE" ]]; then
     HISTFILE=$HOME/.zsh_history
 fi
 HISTSIZE=10000
@@ -114,7 +114,7 @@ function git_status_info() {
     local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
     if [[ "$branch" ]]; then
         local git_status="$(git status --untracked-files=no --porcelain 2>/dev/null)"
-        if [ "$git_status" ]; then
+        if [[ "$git_status" ]]; then
             local dirty="*";
         fi
         echo " <$branch$dirty>"
@@ -134,7 +134,7 @@ function precmd() {
 
     # ANSI colors 8-14 mirror colors 0-7, but as bold. Since zsh's %F syntax
     # doesn't take this into account, we'll have to make them bold manually.
-    if [ $_host_cksum -ge 8 ]; then
+    if [[ $_host_cksum -ge 8 ]]; then
         _host_colored="%B${_host_colored}%b"
     fi
 
@@ -144,7 +144,7 @@ function precmd() {
     # I adjusted my other terminal colors to not be so dark, but if you don't
     # want to do this, you can add a similar background color addition for other
     # darkish colors (e.g. blue, magenta).
-    if [ $(( $_host_cksum % 8 )) -eq 0 ]; then
+    if [[ $(( $_host_cksum % 8 )) -eq 0 ]]; then
         _host_colored="%K{7}${_host_colored}%k"
     fi
 
@@ -160,7 +160,7 @@ autoload -U compinit
 compinit -i
 
 # Compile zcompdump if necessary
-if [ ~/.zcompdump -nt ~/.zcompdump.zwc -o ! -e ~/.zcompdump.zwc ]; then
+if [[ ~/.zcompdump -nt ~/.zcompdump.zwc -o ! -e ~/.zcompdump.zwc ]]; then
   zcompile ~/.zcompdump
 fi
 
@@ -184,7 +184,7 @@ bindkey '^R' history-incremental-search-backward
 bindkey '^S' history-incremental-search-forward
 bindkey '^[[2~' overwrite-mode              # insert key overwrite mode
 bindkey '^[[3~' delete-char                 # delete key fix
-if [ -n "$TMUX" ]; then
+if [[ -n "$TMUX" ]]; then
     bindkey '^[[1~' beginning-of-line       # home key
     bindkey '^[[4~' end-of-line             # end key
 else
