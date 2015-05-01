@@ -63,15 +63,15 @@ bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
 
 # my custom dev window layout
-bind-key R select-layout 07dc,425x118,0,0[425x102,0,0,121,425x15,0,103{212x15,0,103,123,212x15,213,103,124}]
+bind-key R select-layout 9ac0,425x118,0,0[425x100,0,0,645,425x17,0,101,0]
 
 # similar to above, but adapted to have an additional pane on the side for
 # grepping, git work, etc. 'g' puts the extra pane on the left side, and 'G'
 # puts it on the right side. the pane is sized to fit exactly 80 columns of
 # text in 10pt Menlo, which leaves room for 4 additional split views of 80
 # column text on a 27" iMac monitor.
-bind-key g select-layout 1505,425x118,0,0[425x102,0,0{84x102,0,0,186,340x102,85,0,73},425x15,0,103,71]
-bind-key G select-layout 07f2,425x118,0,0[425x102,0,0{340x102,0,0,216,84x102,341,0,217},425x15,0,103,218]
+bind-key g select-layout a3c1,425x118,0,0[425x100,0,0{82x100,0,0,0,342x100,83,0,645},425x17,0,101,2]
+bind-key G select-layout 833a,425x118,0,0[425x100,0,0{342x100,0,0,645,82x100,343,0,0},425x17,0,101,2]
 
 # widen the main pane for the main-vertical layout, so my prompt doesn't get
 # truncated as easily.
