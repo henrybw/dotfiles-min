@@ -115,6 +115,9 @@ map zp :set invpaste paste?<CR>
 " Toggle search pattern hilighting and display the value
 map <leader>h :set hlsearch! hlsearch?<CR>
 
+" Toggle wrapping
+map <leader>w :set wrap! wrap?<CR>
+
 " Toggle column guide
 fun! ToggleColorColumn()
     if empty(&colorcolumn)
