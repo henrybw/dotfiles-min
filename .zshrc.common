@@ -168,6 +168,7 @@ fi
 
 alias ls='ls --color'
 alias la='ls -a'
+alias ll='ls -l'
 alias lla='ls -la'
 alias info="info --vi-keys"
 alias grep='grep --color=always'
