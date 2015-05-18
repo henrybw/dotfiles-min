@@ -112,9 +112,9 @@ function vi_mode_prompt_info() {
 # Git branch/dirty indicator
 function git_status_info() {
     local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
-    if [[ "$branch" ]]; then
+    if [ "$branch" ]; then
         local git_status="$(git status --untracked-files=no --porcelain 2>/dev/null)"
-        if [[ "$git_status" ]]; then
+        if [ "$git_status" ]; then
             local dirty="*";
         fi
         echo " <$branch$dirty>"
