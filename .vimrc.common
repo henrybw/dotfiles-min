@@ -253,9 +253,10 @@ set nocompatible
 set history=100
 set printoptions=syntax:y,wrap:y
 
-" Don't keep around the backup file on success
+" Don't keep around backups or swap files
 set writebackup
 set nobackup
+set noswapfile
 
 " Enable 'wild menus' for tags
 set wildmenu
