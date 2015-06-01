@@ -243,10 +243,6 @@ else
     set clipboard=unnamed
 endif
 
-" Don't include the last character of the selection when yanking (matching
-" modern GUI editing conventions).
-set selection=exclusive
-
 "
 " GVim settings
 "
