@@ -173,14 +173,6 @@ endf
 nn <C-g> :call JumpToDef()<cr>
 ino <C-g> <esc>:call JumpToDef()<cr>i
 
-" Remap the paste controls to match modern GUI behavior; i.e. paste before the
-" current cursor position (instead of after the cursor position, which is the
-" default).
-noremap p gP
-noremap P gp
-noremap gp P
-noremap gP p
-
 "
 " Formatting
 "
