@@ -159,6 +159,19 @@ if has('mouse_sgr')
     set ttymouse=sgr
 endif
 
+" Nim idetools support (basically ctags for nim)
+fun! JumpToDef()
+    if exists("*GotoDefinition_" . &filetype)
+        call GotoDefinition_{&filetype}()
+    else
+        exe "norm! \<C-]>"
+    endif
+endf
+
+" Jump to nim tag
+nn <C-g> :call JumpToDef()<cr>
+ino <C-g> <esc>:call JumpToDef()<cr>i
+
 "
 " Formatting
 "
