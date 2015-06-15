@@ -110,7 +110,11 @@ fun! ScrollToPercent(percent)
     execute ":set so=" . oldso
 endfun
 
-map zg :call ScrollToPercent(25)<CR>
+" I find just having zt and zb limiting; oftentimes, I'll want to put the
+" current piece of code I'm looking at in either top or bottom "quadrant" of the
+" screen. Hence, the scrolling to 25% and 75% commands.
+map zf :call ScrollToPercent(25)<CR>
+map zg :call ScrollToPercent(75)<CR>
 
 " Map Y do be analog of D
 map Y y$
