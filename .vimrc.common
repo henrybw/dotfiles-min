@@ -98,16 +98,22 @@ map <C-w>\ :vsp<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-w>gf :vertical wincmd f<CR>
 
 fun! ScrollToPercent(percent)
-    let movelines=winheight(0)*a:percent/100
-
-    if has("float") && type(movelines)==type(0.0)
+    let movelines=winheight(0)*(50-a:percent)/100
+    echo movelines
+    if movelines<0
+        let motion='k'
+        let rmotion='j'
+        let movelines=-movelines
+    elseif movelines>0
+        let motion='j'
+        let rmotion='k'
+    else
+        return 0
+    endif
+    if has('float') && type(movelines)==type(0.0)
         let movelines=float2nr(movelines)
     endif
-
-    let oldso=&so
-    execute ":set so=" . movelines
-    execute "normal! zt"
-    execute ":set so=" . oldso
+    execute 'normal! zz'.movelines.motion.'zz'.movelines.rmotion
 endfun
 
 " I find just having zt and zb limiting; oftentimes, I'll want to put the
