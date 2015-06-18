@@ -121,3 +121,7 @@ set-window-option -g xterm-keys on
 
 # make messages last longer
 set-option -g display-time 3000
+
+# rate limit tmux output to not gum up local terminals
+set -g c0-change-trigger 150
+set -g c0-change-interval 100
