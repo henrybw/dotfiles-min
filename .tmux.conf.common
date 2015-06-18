@@ -85,9 +85,11 @@ set-window-option -g main-pane-width 115
 bind-key v select-layout main-vertical
 bind-key s select-layout main-horizontal
 
+# I don't like mouse mode; just use copy mode if you want to select things
+set -g mode-mouse off
+
 # toggle mouse on with PREFIX m
 bind m \
-  set -g mode-mouse on \;\
   set -g mouse-resize-pane on \;\
   set -g mouse-select-pane on \;\
   set -g mouse-select-window on \;\
@@ -95,14 +97,12 @@ bind m \
 
 # toggle mouse off with PREFIX M
 bind M \
-  set -g mode-mouse off \;\
   set -g mouse-resize-pane off \;\
   set -g mouse-select-pane off \;\
   set -g mouse-select-window off \;\
   display 'Mouse: OFF'
 
 # set mouse on by default
-set -g mode-mouse on
 set -g mouse-resize-pane on
 set -g mouse-select-pane on
 set -g mouse-select-window on
