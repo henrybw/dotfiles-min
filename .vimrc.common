@@ -71,7 +71,11 @@ set diffopt=filler,vertical
 set t_ut=
 set t_Co=256
 
-set lazyredraw
+" This seems to have a net effect of batching screen updates, resulting in very
+" large redraw events occuring when, for example, switching tmux windows. Over a
+" network connection, this can make rendering large vim windows very laggy. With
+" this off, however, rendering speed seems to stay relatively sane in most cases.
+set nolazyredraw
 
 "
 " Keys/Controls
