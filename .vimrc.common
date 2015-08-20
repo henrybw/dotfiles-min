@@ -60,9 +60,12 @@ autocmd BufLeave * setlocal nocursorline
 let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
 
-" I want splits to open up the way I read: left-to-right, top-to-bottom
+" I usually use vertical splits to follow tags / call chains, so I want them to
+" progress left-to-right. However, I tend to use horizontal splits to examine
+" definitions, for which I'd like to have them open upward (so the opened buffer
+" with the definition appears above the current buffer I'm in).
 set splitright
-set splitbelow
+set nosplitbelow
 
 " Make diff windows open as vertical splits by default
 set diffopt=filler,vertical
