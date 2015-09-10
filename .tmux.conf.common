@@ -73,7 +73,7 @@ bind-key R select-layout 9ac0,425x118,0,0[425x100,0,0,645,425x17,0,101,0]
 # puts it on the right side. the pane is sized to fit exactly 80 columns of
 # text in 10pt Menlo, which leaves room for 4 additional split views of 80
 # column text on a 27" iMac monitor.
-bind-key g select-layout a3c1,425x118,0,0[425x100,0,0{82x100,0,0,0,342x100,83,0,645},425x17,0,101,2]
+bind-key g select-layout bc5d,425x118,0,0{82x118,0,0,1603,342x118,83,0,895}
 bind-key G select-layout 833a,425x118,0,0[425x100,0,0{342x100,0,0,645,82x100,343,0,0},425x17,0,101,2]
 
 # widen the main pane for the main-vertical layout, so my prompt doesn't get
