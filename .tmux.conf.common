@@ -1,4 +1,4 @@
-# taken from http://zanshin.net/2013/09/05/my-tmux-configuration/
+# inspired by http://zanshin.net/2013/09/05/my-tmux-configuration/
 
 # use UTF8
 set -g utf8
@@ -65,25 +65,9 @@ set-window-option -g mode-keys vi
 bind-key -t vi-copy 'v' begin-selection
 bind-key -t vi-copy 'y' copy-selection
 
-# my custom dev window layout
-bind-key R select-layout 9ac0,425x118,0,0[425x100,0,0,645,425x17,0,101,0]
-
-# similar to above, but adapted to have an additional pane on the side for
-# grepping, git work, etc. 'g' puts the extra pane on the left side, and 'G'
-# puts it on the right side. the pane is sized to fit exactly 80 columns of
-# text in 10pt Menlo, which leaves room for 4 additional split views of 80
-# column text on a 27" iMac monitor.
-bind-key g select-layout bc5d,425x118,0,0{82x118,0,0,1603,342x118,83,0,895}
-bind-key G select-layout 833a,425x118,0,0[425x100,0,0{342x100,0,0,645,82x100,343,0,0},425x17,0,101,2]
-
 # widen the main pane for the main-vertical layout, so my prompt doesn't get
 # truncated as easily.
 set-window-option -g main-pane-width 115
-
-# convenience shortcuts for the "main" layouts (I never use the window searching
-# feature, so I just mirror vim's shortcut scheme).
-bind-key v select-layout main-vertical
-bind-key s select-layout main-horizontal
 
 # I don't like mouse mode; just use copy mode if you want to select things
 set -g mode-mouse off
