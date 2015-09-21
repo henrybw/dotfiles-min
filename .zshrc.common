@@ -169,7 +169,9 @@ fi
 alias ls='ls --color'
 alias la='ls -a'
 alias ll='ls -l'
+alias ll='ls -lh'
 alias lla='ls -la'
+alias llah='ls -lah'
 alias info="info --vi-keys"
 alias grep='grep --color=always'
 alias egrep='egrep --color=always'
@@ -178,6 +180,7 @@ alias irssi='TERM=screen-256color irssi'
 alias cgdb='TERM=screen-256color cgdb'
 alias htop='TERM=screen-256color htop'
 alias g='git'
+alias v='vim'
 alias lag='ag --pager=less'
 alias alert='echo -ne "\a"';
 
