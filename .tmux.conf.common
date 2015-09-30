@@ -109,3 +109,6 @@ set-option -g display-time 3000
 # rate limit tmux output to not gum up local terminals
 set -g c0-change-trigger 150
 set -g c0-change-interval 100
+
+# rotating windows is annoying, and I often fat-finger it with C-a C-p
+unbind C-o
