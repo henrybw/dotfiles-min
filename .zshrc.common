@@ -202,6 +202,7 @@ fi
 export KEYTIMEOUT=1
 export EDITOR=vim
 export VISUAL=vim
+export LESS='-R'
 
 setopt autocd extendedglob notify completeinword
 unsetopt sharehistory
