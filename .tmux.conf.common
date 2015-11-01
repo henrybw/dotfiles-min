@@ -22,12 +22,12 @@ bind C-a send-prefix
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
 # fix window creation to use the current directory
-bind-key c new-window -c "#{pane_current_path}"
+bind c new-window -c ' #{pane_current_path}'
 
 # use PREFIX | to split window horizontally and PREFIX - to split vertically
-bind | split-window -h -c "#{pane_current_path}"
-bind \ split-window -h -c "#{pane_current_path}" # synonym
-bind - split-window -v -c "#{pane_current_path}"
+bind | split-window -h -c '#{pane_current_path}'
+bind \ split-window -h -c '#{pane_current_path}'
+bind - split-window -v -c '#{pane_current_path}'
 
 # make the current window the first window
 bind T swap-window -t 1
@@ -62,34 +62,23 @@ bind L resize-pane -R 5
 
 # some more vi key bindings
 set-window-option -g mode-keys vi
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
+bind -t vi-copy 'v' begin-selection
+bind -t vi-copy 'y' copy-selection
 
 # widen the main pane for the main-vertical layout, so my prompt doesn't get
 # truncated as easily.
 set-window-option -g main-pane-width 115
 
-# I don't like mouse mode; just use copy mode if you want to select things
-set -g mode-mouse off
+# set mouse on with PREFIX m
+bind m set -g mouse on \; display 'Mouse: ON'
 
-# toggle mouse on with PREFIX m
-bind m \
-  set -g mouse-resize-pane on \;\
-  set -g mouse-select-pane on \;\
-  set -g mouse-select-window on \;\
-  display 'Mouse: ON'
+# set mouse off with PREFIX M
+bind M set -g mouse off \; display 'Mouse: OFF'
 
-# toggle mouse off with PREFIX M
-bind M \
-  set -g mouse-resize-pane off \;\
-  set -g mouse-select-pane off \;\
-  set -g mouse-select-window off \;\
-  display 'Mouse: OFF'
-
-# set mouse on by default
-set -g mouse-resize-pane on
-set -g mouse-select-pane on
-set -g mouse-select-window on
+# have mouse on by default
+if "expr `tmux -V | cut '-d ' -f2` '<' '2.1'" \
+    "set -g mouse-resize-pane on; set -g mouse-select-pane on; set -g mouse-select-window on" \
+    "set -g mouse on"
 
 # fix terminal colors
 set -g default-terminal "xterm-256color"
@@ -106,9 +95,9 @@ set-window-option -g xterm-keys on
 # make messages last longer
 set-option -g display-time 3000
 
-# rate limit tmux output to not gum up local terminals
-set -g c0-change-trigger 150
-set -g c0-change-interval 100
+# for older versions, rate limit tmux output to not gum up local terminals
+if "expr `tmux -V | cut '-d ' -f2` '<' '2.1'" \
+    "set -g c0-change-trigger 150; set -g c0-change-interval 100"
 
 # rotating windows is annoying, and I often fat-finger it with C-a C-p
 unbind C-o
