@@ -22,7 +22,7 @@ bind C-a send-prefix
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
 # fix window creation to use the current directory
-bind c new-window -c ' #{pane_current_path}'
+bind c new-window -c '#{pane_current_path}'
 
 # use PREFIX | to split window horizontally and PREFIX - to split vertically
 bind | split-window -h -c '#{pane_current_path}'
