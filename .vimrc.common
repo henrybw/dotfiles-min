@@ -146,6 +146,10 @@ nmap <leader>O O<ESC>
 nmap <leader>s <ESC>:set formatoptions+=ro formatoptions?<CR>
 nmap <leader>d <ESC>:set formatoptions-=ro formatoptions?<CR>
 
+" For quicker quickfixing
+nmap <leader>n <ESC>:cn<CR>
+nmap <leader>p <ESC>:cp<CR>
+
 " Toggle paste mode
 map zp :set invpaste paste?<CR>
 
