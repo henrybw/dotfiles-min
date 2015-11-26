@@ -223,7 +223,11 @@ let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 
 " The C file plugin resets whatever formatoptions we specify here, so we need
 " to set this to trigger on buffer load events instead.
-autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
+if v:version < 703
+    autocmd BufNewFile,BufRead * setlocal formatoptions=cql
+else
+    autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
+endif
 au BufRead,BufNewFile *.h set filetype=c
 
 " Tab settings
