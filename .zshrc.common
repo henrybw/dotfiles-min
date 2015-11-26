@@ -215,6 +215,10 @@ zle -A .self-insert self-insert
 autoload select-word-style
 select-word-style shell
 
+# Crazy pattern-matching batch renaming and moving
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
 # Don't use Ctrl-S/Ctrl-Q for shell flow control
 setopt noflowcontrol
 stty stop undef
