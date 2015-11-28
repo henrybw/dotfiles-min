@@ -59,6 +59,8 @@ autocmd BufLeave * setlocal nocursorline
 " Enable airline
 let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
+" But we don't want any extensions
+let g:airline_extensions = []
 
 " I usually use vertical splits to follow tags / call chains, so I want them to
 " progress left-to-right. However, I tend to use horizontal splits to examine
