@@ -101,3 +101,7 @@ if "expr `tmux -V | cut '-d ' -f2` '<' '2.1'" \
 
 # rotating windows is annoying, and I often fat-finger it with C-a C-p
 unbind C-o
+
+# make iTerm tab/window title display useful information about its tmux session
+set -g set-titles on
+set -g set-titles-string '[#S] #I:#{pane_current_command}'
