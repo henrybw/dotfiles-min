@@ -73,9 +73,10 @@ set-window-option -g main-pane-width 115
 bind m set -g mouse on \; display 'Mouse: ON'
 bind M set -g mouse off \; display 'Mouse: OFF'
 
-# tmux 2.1 got rid of mouse wheel scrolling for some reason...
-bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
-bind -n WheelDownPane select-pane -t= \;                 send-keys -M
+# Start copy mode when scrolling up and exit when scrolling down to bottom.
+# The "#{mouse_any_flag}" check just sends scrolls to any program running that
+# has mouse support (like vim).
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'copy-mode -e'"
 
 # have mouse on by default
 if "expr `tmux -V | cut '-d ' -f2` '<' '2.1'" \
