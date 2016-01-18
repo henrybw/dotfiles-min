@@ -69,11 +69,13 @@ bind -t vi-copy 'y' copy-selection
 # truncated as easily.
 set-window-option -g main-pane-width 115
 
-# set mouse on with PREFIX m
+# mouse toggling
 bind m set -g mouse on \; display 'Mouse: ON'
-
-# set mouse off with PREFIX M
 bind M set -g mouse off \; display 'Mouse: OFF'
+
+# tmux 2.1 got rid of mouse wheel scrolling for some reason...
+bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
+bind -n WheelDownPane select-pane -t= \;                 send-keys -M
 
 # have mouse on by default
 if "expr `tmux -V | cut '-d ' -f2` '<' '2.1'" \
