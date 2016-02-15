@@ -108,3 +108,7 @@ unbind C-o
 # make iTerm tab/window title display useful information about its tmux session
 set -g set-titles on
 set -g set-titles-string '[#S] #I:#{pane_current_command}'
+
+# start windows and panes at 1, not 0
+set -g base-index 1
+setw -g pane-base-index 1
