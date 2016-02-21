@@ -202,15 +202,6 @@ if has('mouse_sgr')
     set ttymouse=sgr
 endif
 
-" Nim idetools support (basically ctags for nim)
-fun! JumpToDef()
-    if exists("*GotoDefinition_" . &filetype)
-        call GotoDefinition_{&filetype}()
-    else
-        exe "norm! \<C-]>"
-    endif
-endf
-
 " Disable SQL omnicompletion because it makes Esc super slow
 let g:omni_sql_no_default_maps = 1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
