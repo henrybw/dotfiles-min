@@ -18,17 +18,19 @@ Plug '$HOME/.config/nvim/custom/highlight-ctypes'
 
 call plug#end()
 
-" Set up cscope plugin if we don't have a cscope database already
-redir => s:has_cscope_database
-silent cs show
-redir END
-if substitute(s:has_cscope_database, '^\n*\(.\{-}\)\n*$', '\1', '') == "no cscope connections"
-    source $HOME/.vim/bundle/cscope/cscope_maps.vim
+if has("cscope")
+    set csto=0
+    set cst
+    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
 endif
-
-" Enable plugins that need to be manually run
-source $HOME/.vim/bundle/closetag/closetag.vim
-source $HOME/.vim/bundle/matchit/plugin/matchit.vim
 
 " For the CtrlP plugin
 let g:ctrlp_map = '<C-p>'
