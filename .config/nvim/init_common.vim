@@ -14,6 +14,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/bufkill.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'henrybw/vim-colors-aurora'
+Plug '$HOME/.config/nvim/custom/highlight-ctypes'
 
 call plug#end()
 
