@@ -80,10 +80,6 @@ set nosplitbelow
 " Make diff windows open as vertical splits by default
 set diffopt=filler,vertical
 
-" Some special magic to get full 256 colors working in terminals
-set t_ut=
-set t_Co=256
-
 " This seems to have a net effect of batching screen updates, resulting in very
 " large redraw events occuring when, for example, switching tmux windows. Over a
 " network connection, this can make rendering large vim windows very laggy. With
@@ -205,20 +201,6 @@ nnoremap Q <ESC>
 
 set mouse=a
 
-" Fix weird 223-char terminal limit to be unlimited
-if has('mouse_sgr')
-    set ttymouse=sgr
-endif
-
-" Nim idetools support (basically ctags for nim)
-fun! JumpToDef()
-    if exists("*GotoDefinition_" . &filetype)
-        call GotoDefinition_{&filetype}()
-    else
-        exe "norm! \<C-]>"
-    endif
-endf
-
 " Disable SQL omnicompletion because it makes Esc super slow
 let g:omni_sql_no_default_maps = 1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
@@ -293,7 +275,6 @@ autocmd FileType * call SetFiletypeConditionalConfig()
 " Miscellaneous settings
 "
 
-set nocompatible
 set history=100
 set printoptions=syntax:y,wrap:y
 
