@@ -5,7 +5,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'vim-scripts/closetag.vim'
-Plug 'brookhong/cscope.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tmhedberg/matchit'
 Plug 'hynek/vim-python-pep8-indent'
