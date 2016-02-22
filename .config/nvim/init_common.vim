@@ -102,10 +102,13 @@ set laststatus=2
 
 " Make cursorline only show up on the currently focused window
 set cursorline
-autocmd WinEnter * setlocal cursorline
-autocmd BufEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-autocmd BufLeave * setlocal nocursorline
+augroup cursorline
+    autocmd!
+    autocmd WinEnter * setlocal cursorline
+    autocmd BufEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+    autocmd BufLeave * setlocal nocursorline
+augroup END
 
 " Enable airline
 let g:airline_theme = 'powerlineish'
@@ -257,12 +260,15 @@ cmap w!! w !sudo tee > /dev/null %
 
 " The C file plugin resets whatever formatoptions we specify here, so we need
 " to set this to trigger on buffer load events instead.
-if v:version < 703
-    autocmd BufNewFile,BufRead * setlocal formatoptions=cql
-else
-    autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
-endif
-au BufRead,BufNewFile *.h set filetype=c
+augroup cformatopt
+    autocmd!
+    if v:version < 703
+        autocmd BufNewFile,BufRead * setlocal formatoptions=cql
+    else
+        autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
+    endif
+    autocmd BufRead,BufNewFile *.h set filetype=c
+augroup END
 
 " Tab settings
 set shiftwidth=4
@@ -312,7 +318,11 @@ fun! SetFiletypeConditionalConfig()
         set textwidth=80
     endif
 endfun
-autocmd FileType * call SetFiletypeConditionalConfig()
+
+augroup filetype
+    autocmd!
+    autocmd FileType * call SetFiletypeConditionalConfig()
+augroup END
 
 "
 " Miscellaneous settings
