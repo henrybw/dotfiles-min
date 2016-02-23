@@ -82,9 +82,6 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(pyc|so|swp|o)$',
   \ }
 
-" For the Tagbar plugin
-nmap <leader>t :TagbarToggle<CR>
-
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
 
@@ -250,6 +247,9 @@ set mouse=a
 " Disable SQL omnicompletion because it makes Esc super slow
 let g:omni_sql_no_default_maps = 1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
+
+" For the Tagbar plugin
+nmap <leader>t :TagbarToggle<CR>
 
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
