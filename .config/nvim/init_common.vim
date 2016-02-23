@@ -8,6 +8,7 @@ Plug 'vim-scripts/closetag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tmhedberg/matchit'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/bufkill.vim'
@@ -113,8 +114,7 @@ augroup END
 " Enable airline
 let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
-" But we don't want any extensions
-let g:airline_extensions = []
+let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
 
 " I usually use vertical splits to follow tags / call chains, so I want them to
 " progress left-to-right. However, I tend to use horizontal splits to examine
