@@ -111,7 +111,15 @@ augroup END
 " Enable airline
 let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
+
+augroup tabline
+    autocmd!
+    autocmd BufWritePost * call airline#extensions#tabline#tabs#invalidate()
+    autocmd BufWritePost * call airline#extensions#tabline#buflist#invalidate()
+    autocmd BufWritePost * call airline#extensions#tabline#buffers#invalidate()
+augroup END
 
 " I usually use vertical splits to follow tags / call chains, so I want them to
 " progress left-to-right. However, I tend to use horizontal splits to examine
