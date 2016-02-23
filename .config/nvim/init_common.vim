@@ -116,9 +116,8 @@ let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'wh
 
 augroup tabline
     autocmd!
-    autocmd BufWritePost * call airline#extensions#tabline#tabs#invalidate()
-    autocmd BufWritePost * call airline#extensions#tabline#buflist#invalidate()
-    autocmd BufWritePost * call airline#extensions#tabline#buffers#invalidate()
+    autocmd TextChanged * call airline#extensions#tabline#buffers#invalidate()
+    autocmd InsertLeave * call airline#extensions#tabline#buffers#invalidate()
 augroup END
 
 " I usually use vertical splits to follow tags / call chains, so I want them to
