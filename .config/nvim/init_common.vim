@@ -112,13 +112,8 @@ augroup END
 let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_detect_modified = 0  " This can get reaaaaaally slow
 let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
-
-augroup tabline
-    autocmd!
-    autocmd TextChanged * call airline#extensions#tabline#buffers#invalidate()
-    autocmd InsertLeave * call airline#extensions#tabline#buffers#invalidate()
-augroup END
 
 " I usually use vertical splits to follow tags / call chains, so I want them to
 " progress left-to-right. However, I tend to use horizontal splits to examine
