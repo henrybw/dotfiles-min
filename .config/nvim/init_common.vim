@@ -19,8 +19,8 @@ Plug '$HOME/.config/nvim/custom/highlight-ctypes'
 call plug#end()
 
 if has("cscope")
-    set csto=0
-    set cst
+    set csto=1
+    set nocst
     set nocsverb
     set cscopequickfix=
     " add any database in current directory
@@ -30,7 +30,6 @@ if has("cscope")
     elseif $CSCOPE_DB != ""
         cs add $CSCOPE_DB
     endif
-    set csverb
 endif
 
 " To do the first type of search, hit 'CTRL-\', followed by one of the
