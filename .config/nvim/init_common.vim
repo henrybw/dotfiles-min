@@ -13,10 +13,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/bufkill.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'henrybw/vim-colors-aurora'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'henrybw/vim-colors-aurora'
 Plug '$HOME/.config/nvim/custom/cscope-maps'
-"Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
 
@@ -30,6 +30,9 @@ let g:ctrlp_custom_ignore = {
 
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
+
+" Highlight trailing whitespace by default
+let g:better_whitespace_enabled = 1
 
 "
 " Theming
@@ -60,6 +63,9 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_detect_modified = 0  " This can get reaaaaaally slow
 let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
+
+" For the trailing whitespace plugin
+hi ExtraWhitespace ctermbg=red guibg=red
 
 " I usually use vertical splits to follow tags / call chains, so I want them to
 " progress left-to-right. However, I tend to use horizontal splits to examine
@@ -101,7 +107,7 @@ map <C-w>\ :vsp<CR>:exec("tag ".expand("<cword>"))<CR>
 " Vertical split version of Ctrl-W F (because I never use vim tabs anyway)
 map <C-w>gf :vertical wincmd f<CR>
 
-fun! ScrollToPercent(percent)
+fun! g:ScrollToPercent(percent)
     let movelines=winheight(0)*(50-a:percent)/100
     echo movelines
     if movelines<0
@@ -123,8 +129,8 @@ endfun
 " I find just having zt and zb limiting; oftentimes, I'll want to put the
 " current piece of code I'm looking at in either top or bottom 'quadrant' of the
 " screen. Hence, the scrolling to 25% and 75% commands.
-map zr :call ScrollToPercent(25)<CR>
-map zv :call ScrollToPercent(75)<CR>
+map zr :call g:ScrollToPercent(25)<CR>
+map zv :call g:ScrollToPercent(75)<CR>
 
 " Map Y do be analog of D
 map Y y$
@@ -157,14 +163,14 @@ map <leader>h :set hlsearch! hlsearch?<CR>
 map <leader>w :set wrap! wrap?<CR>
 
 " Toggle column guide
-fun! ToggleColorColumn()
+fun! g:ToggleColorColumn()
     if empty(&colorcolumn)
         set colorcolumn=+1
     else
         set colorcolumn=
     endif
 endfun
-nmap <leader>\ :call ToggleColorColumn()<CR>
+nmap <leader>\ :call g:ToggleColorColumn()<CR>
 
 " Emulate some IDE-style editing behavior with backspace and shift-tab
 set backspace=indent,eol,start
@@ -201,6 +207,9 @@ nmap <leader>t :TagbarToggle<CR>
 
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
+
+nmap <leader><CR> :ToggleWhitespace<CR>
+nmap <leader><BS> :StripWhitespace<CR>
 
 "
 " Formatting
@@ -257,7 +266,7 @@ endif
 " text and files with no file type (which are probably also plain text). Of
 " course, since vimscript is a pile of shit, we have to do this with a custom
 " function instead of embedding a conditional in the autocmd...
-fun! SetFiletypeConditionalConfig()
+fun! g:SetFiletypeConditionalConfig()
     if empty(&filetype) || &filetype == "text"
         set wrap
         set textwidth=0
@@ -269,7 +278,7 @@ endfun
 
 augroup filetype
     autocmd!
-    autocmd FileType * call SetFiletypeConditionalConfig()
+    autocmd FileType * call g:SetFiletypeConditionalConfig()
 augroup END
 
 "
