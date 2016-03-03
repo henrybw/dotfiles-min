@@ -31,8 +31,13 @@ let g:ctrlp_custom_ignore = {
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
 
-" Highlight trailing whitespace by default
-let g:better_whitespace_enabled = 1
+" This seems to be the only way to have the whitespace plugin show trailing
+" whitespace automatically by default....
+augroup whitespace
+    autocmd!
+    autocmd BufRead,BufNewFile * ToggleWhitespace
+    autocmd BufRead,BufNewFile * ToggleWhitespace
+augroup END
 
 "
 " Theming
