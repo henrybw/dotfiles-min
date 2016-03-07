@@ -149,10 +149,10 @@ nmap <leader>cc cc<ESC>
 nmap <leader>o o<ESC>
 nmap <leader>O O<ESC>
 
-" Toggle autocomment mode (normally I don't like it, but it's really helpful
-" when writing multiline C block comments, for example)
-nmap <leader>s <ESC>:set formatoptions+=ro formatoptions?<CR>
-nmap <leader>d <ESC>:set formatoptions-=ro formatoptions?<CR>
+" Toggle autocomment mode, for those times when I don't want enter to continue a
+" comment.
+nmap <leader>s <ESC>:set formatoptions+=r formatoptions?<CR>
+nmap <leader>d <ESC>:set formatoptions-=r formatoptions?<CR>
 
 " For quicker quickfixing
 nmap <leader>n <ESC>:cn<CR>
@@ -227,7 +227,7 @@ augroup cformatopt
     if v:version < 703
         autocmd BufNewFile,BufRead * setlocal formatoptions=cql
     else
-        autocmd BufNewFile,BufRead * setlocal formatoptions=cjql
+        autocmd BufNewFile,BufRead * setlocal formatoptions=crjql
     endif
     autocmd BufRead,BufNewFile *.h set filetype=c
 augroup END
