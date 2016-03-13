@@ -35,8 +35,8 @@ let g:BufKillCreateMappings = 1
 " whitespace automatically by default....
 augroup whitespace
     autocmd!
-    autocmd BufRead,BufNewFile * ToggleWhitespace
-    autocmd BufRead,BufNewFile * ToggleWhitespace
+    autocmd WinEnter,BufEnter * ToggleWhitespace
+    autocmd WinEnter,BufEnter * ToggleWhitespace
 augroup END
 
 "
@@ -56,10 +56,8 @@ set laststatus=2
 set cursorline
 augroup cursorline
     autocmd!
-    autocmd WinEnter * setlocal cursorline
-    autocmd BufEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
-    autocmd BufLeave * setlocal nocursorline
+    autocmd WinEnter,WinEnter * setlocal cursorline
+    autocmd WinLeave,WinLeave * setlocal nocursorline
 augroup END
 
 " Enable airline
