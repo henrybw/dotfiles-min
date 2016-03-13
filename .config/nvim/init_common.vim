@@ -211,8 +211,7 @@ nmap <leader>t :TagbarToggle<CR>
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
 
-nmap <leader><CR> :ToggleWhitespace<CR>
-nmap <leader><BS> :StripWhitespace<CR>
+nmap <leader><CR> :StripWhitespace<CR>
 
 "
 " Formatting
