@@ -56,8 +56,8 @@ set laststatus=2
 set cursorline
 augroup cursorline
     autocmd!
-    autocmd WinEnter,WinEnter * setlocal cursorline
-    autocmd WinLeave,WinLeave * setlocal nocursorline
+    autocmd WinEnter,BufEnter * setlocal cursorline
+    autocmd WinLeave,BufLeave * setlocal nocursorline
 augroup END
 
 " Enable airline
