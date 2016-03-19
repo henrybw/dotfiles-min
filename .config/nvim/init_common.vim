@@ -16,6 +16,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'henrybw/vim-colors-aurora'
+Plug 'guns/xterm-color-table.vim'
 Plug '$HOME/.config/nvim/custom/cscope-maps'
 
 call plug#end()
