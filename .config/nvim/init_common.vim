@@ -65,6 +65,7 @@ augroup END
 let g:airline_theme = 'powerlineish'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_detect_modified = 0  " This can get reaaaaaally slow
 let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
 
