@@ -158,6 +158,10 @@ nmap <leader>d <ESC>:set formatoptions-=r formatoptions?<CR>
 nmap <leader>n <ESC>:cn<CR>
 nmap <leader>p <ESC>:cp<CR>
 
+" For when you match a tag more than once
+nmap <leader>] <ESC>:tn<CR>
+nmap <leader>[ <ESC>:tp<CR>
+
 " Toggle paste mode
 map zp :set invpaste paste?<CR>
 
