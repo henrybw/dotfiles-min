@@ -32,14 +32,6 @@ let g:ctrlp_custom_ignore = {
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
 
-" This seems to be the only way to have the whitespace plugin show trailing
-" whitespace automatically by default....
-augroup whitespace
-    autocmd!
-    autocmd WinEnter,BufEnter * ToggleWhitespace
-    autocmd WinEnter,BufEnter * ToggleWhitespace
-augroup END
-
 "
 " Theming
 "
