@@ -2,25 +2,24 @@
 " Plugin config
 "
 
-" Pathogen must be initialized immediately in order to work properly
-filetype off
-execute pathogen#infect()
-execute pathogen#helptags()
+call plug#begin('~/.vim/plugged')
 
-" Pathogen only re-enables filetype detection; it won't re-enable plugin/indent
-filetype plugin indent on
+Plug 'vim-scripts/closetag.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tmhedberg/matchit'
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'majutsushi/tagbar'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/bufkill.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'justinmk/vim-syntax-extra'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'henrybw/vim-colors-aurora'
+Plug 'guns/xterm-color-table.vim'
+Plug '$HOME/.vim/custom/cscope-maps'
 
-" Set up cscope plugin if we don't have a cscope database already
-redir => s:has_cscope_database
-silent cs show
-redir END
-if substitute(s:has_cscope_database, '^\n*\(.\{-}\)\n*$', '\1', '') == "no cscope connections"
-    source $HOME/.vim/bundle/cscope/cscope_maps.vim
-endif
-
-" Enable plugins that need to be manually run
-source $HOME/.vim/bundle/closetag/closetag.vim
-source $HOME/.vim/bundle/matchit/plugin/matchit.vim
+call plug#end()
 
 " For the CtrlP plugin
 let g:ctrlp_map = '<C-p>'
