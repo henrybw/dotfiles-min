@@ -14,7 +14,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/bufkill.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'justinmk/vim-syntax-extra'
-Plug 'ntpeters/vim-better-whitespace'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'henrybw/vim-colors-aurora'
 Plug 'guns/xterm-color-table.vim'
 Plug '$HOME/.config/nvim/custom/cscope-maps'
@@ -59,7 +59,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_detect_modified = 0  " This can get reaaaaaally slow
-let g:airline_extensions = ['branch', 'ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
+let g:airline_extensions = ['ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
 
 " For the trailing whitespace plugin
 hi ExtraWhitespace ctermbg=red guibg=red
@@ -209,7 +209,7 @@ nmap <leader>t :TagbarToggle<CR>
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
 
-nmap <leader><CR> :StripWhitespace<CR>
+nmap <leader><CR> :FixWhitespace<CR>
 
 "
 " Formatting
