@@ -28,6 +28,9 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg)$',
   \ 'file': '\v\.(pyc|so|swp|o)$',
   \ }
+let g:ctrlp_user_command = [
+  \ '.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'
+  \ ]
 
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
@@ -102,8 +105,11 @@ nnoremap <leader>` :b#<CR>
 " doesn't allow you to exit with Ctrl-C, for example).
 inoremap <C-c> <Esc>
 
-" Open tag in a vertical split (Ctrl-W ] opens in horizontal split)
-map <C-w>\ :vsp<CR>:exec("tag ".expand("<cword>"))<CR>
+" Open tag in a vertical split (Ctrl-W ] opens in horizontal split).
+" NOTE: The visual mode version of this clobbers the 'u' register, chosen
+" because using 'u' in conjunction with y and " seems inconvenient.
+nnoremap <C-w>\ :exec("vert stag " . expand("<cword>"))<CR>
+vnoremap <C-w>\ "uy :exec("vert stag " . getreg('u'))<CR>
 
 " Vertical split version of Ctrl-W F (because I never use vim tabs anyway)
 map <C-w>gf :vertical wincmd f<CR>
