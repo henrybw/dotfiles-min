@@ -273,6 +273,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (add-hook 'window-setup-hook 'set-transparent-bg)
   (add-hook 'server-switch-hook 'set-transparent-bg)
 
+  ;; This makes up/down work during isearch
+  (setq-default evil-search-module 'evil-search)
+
   ;; irony-mode settings (disabled for now)
   ;; (setq-default dotspacemacs-configuration-layers
   ;;               '((c-c++ :variables c-c++-enable-clang-support t)))
@@ -760,6 +763,8 @@ neither, we use the current indent-tabs-mode."
     nil)
 
   (defun c-mode-highlight-function-calls (limit)
+    "Highlighter function for cc-mode font-lock that highlights function calls using the
+function name font face."
     (let ((retval nil))
       (save-restriction
         (widen)
@@ -811,19 +816,17 @@ neither, we use the current indent-tabs-mode."
 
   (add-hook 'c-mode-common-hook 'c-mode-common-settings)
 
-  (defun shell-mode-config ()
-    (linum-mode -1)
-    (use-local-map (copy-keymap shell-mode-map))
-    (local-set-key (kbd "C-g") 'comint-interrupt-subjob)
-    (local-set-key (kbd "C-d") 'comint-delchar-or-maybe-eof))
+  (add-hook 'shell-mode-hook
+            (lambda ()
+              (linum-mode -1)
+              (use-local-map (copy-keymap shell-mode-map))
+              (local-set-key (kbd "C-g") 'comint-interrupt-subjob)
+              (local-set-key (kbd "C-d") 'comint-delchar-or-maybe-eof)))
 
-  (add-hook 'shell-mode-hook 'shell-mode-config)
-
-  (defun term-mode-config ()
-    (use-local-map (copy-keymap term-mode-map))
-    (local-set-key (kbd "C-g") 'comint-interrupt-subjob))
-
-  (add-hook 'term-mode-hook 'term-mode-config)
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (use-local-map (copy-keymap term-mode-map))
+              (local-set-key (kbd "C-g") 'comint-interrupt-subjob)))
 
   ;; irony-mode stuff (disabled)
   ;; (global-flycheck-mode -1)
