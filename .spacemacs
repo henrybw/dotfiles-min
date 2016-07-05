@@ -376,6 +376,13 @@ and C-g binding."
     (dotspacemacs/user-config))
   (evil-leader/set-key "f e r" 'dotspacemacs/reload-dotfile)
 
+  (evil-leader/set-key "s c"
+    (defalias 'evil-clear-all-search-highlights
+      (lambda ()
+        (interactive)
+        (evil-ex-nohighlight)
+        (evil-search-highlight-persist-remove-all))))
+
   ;; Port of cscope_maps.vim
   ;; XXX - TYPOS ლ(ಠ益ಠლ)
   (defalias 'helm-cscope-find-calling-this-function
