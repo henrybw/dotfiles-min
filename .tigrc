@@ -1,0 +1,3 @@
+set main-view-author = display:email-user,width=9
+set main-view-date = display:short
+set main-view-id = display:true
