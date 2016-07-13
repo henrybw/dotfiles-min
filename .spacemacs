@@ -50,6 +50,7 @@ values."
      undo-tree
      ac-etags
      bison-mode
+     polymode
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -277,8 +278,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default evil-search-module 'evil-search)
 
   ;; irony-mode settings (disabled for now)
-  ;; (setq-default dotspacemacs-configuration-layers
-  ;;               '((c-c++ :variables c-c++-enable-clang-support t)))
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables c-c++-enable-clang-support nil)))
   )
 
 (defun dotspacemacs/user-config ()
@@ -813,10 +814,13 @@ function name font face."
 
     ;; Highlight function calls and #if 0 blocks
     (font-lock-add-keywords nil
-                            '((c-mode-highlight-function-calls . font-lock-function-name-face)
+                            '(
+                              ;; XXX HBW - this doesn't work reliably, and can get dropped in
+                              ;; certain cases (like when undoing an edit inside a function name).
+                              (c-mode-highlight-function-calls . font-lock-function-name-face)
                               ;; Sometimes operations like undo will confuse font-lock and the
                               ;; custom function name highlighting logic specified above.
-                              ("\\(\\w+\\)\\s-*\(" (1 font-lock-function-name-face))
+                              ("\\(\\w+\\)\\s-*\(" (1 font-lock-function-name-face append))
                               (my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend)))
                             'add-to-end)
     )
