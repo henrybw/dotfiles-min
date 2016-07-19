@@ -578,7 +578,9 @@ a numerical argument, switch to workspace number COUNT."
     (define-key helm-map (kbd "C-y") 'helm-previous-line)
     (define-key helm-map (kbd "C-w") 'backward-kill-word)
     (define-key helm-map (kbd "C-f") 'helm-next-page)
-    (define-key helm-map (kbd "C-b") 'helm-previous-page))
+    (define-key helm-map (kbd "C-b") 'helm-previous-page)
+    ;; helm-follow-mode is sweet, and doesn't deserve to be obscured by C-c
+    (define-key helm-map (kbd "C-s") 'helm-follow-mode))
   (add-hook 'helm-mode-hook 'add-helm-keymaps)
 
   ;; I was not convinced :P
@@ -691,24 +693,25 @@ a numerical argument, switch to workspace number COUNT."
   (setq-default spacemacs-show-trailing-whitespace t)
   (setq-default font-lock-maximum-decoration t)
 
-  ;;;
-  ;;; Formatting
-  ;;;
-
-  (global-company-mode nil)
-  (setq-default comment-multi-line t)
-  (global-linum-mode t)
-  (auto-fill-mode)
-
   (setq-default helm-buffers-fuzzy-matching t)
   (setq-default helm-recentf-fuzzy-match t)
   (setq-default helm-etags-fuzzy-match t)
 
+  (global-company-mode nil)
+  (global-linum-mode t)
+  (auto-fill-mode)
+
+  ;;;
+  ;;; Formatting
+  ;;;
+
+  (setq-default comment-multi-line t)
   (setq-default truncate-lines t)  ; Turn off word wrap
 
   ;; Always re-read the tags file without prompting
   (setq-default tags-revert-without-query t)
 
+  ;; Disable smart autocompletion of quotes
   (sp-pair "'" nil :actions :rem)
   (sp-pair "\"" nil :actions :rem)
 
