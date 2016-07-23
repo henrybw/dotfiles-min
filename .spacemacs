@@ -32,7 +32,6 @@ values."
      org
      cscope
      auto-completion
-     eyebrowse
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
@@ -512,25 +511,6 @@ and C-g binding."
     (find-tag "" t))
   (evil-ex-define-cmd "tn[ext]" 'evil-next-tag)
   (evil-leader/set-key "]" 'evil-next-tag)
-
-  ;; Map eyebrowse workspaces as an analog to vim tabs
-  (defun eyebrowse-create-workspace (count)
-    "Creates a new workspace after the last existing workspace. When used with
-a numerical argument, switch to workspace number COUNT."
-    ;; Adapted from eyebrowse-next-window-config
-    (interactive "P")
-    (let* ((window-configs (eyebrowse--get 'window-configs))
-           (last-window (1- (length window-configs))))
-      (if count
-          (eyebrowse-switch-to-window-config count)
-        (eyebrowse-switch-to-window-config
-         (1+ (car (nth last-window window-configs)))))))
-  (evil-ex-define-cmd "tabnew" 'eyebrowse-create-workspace)
-  (evil-ex-define-cmd "tabe[dit]" 'eyebrowse-create-workspace)
-  (evil-ex-define-cmd "tabn[ext]" 'eyebrowse-next-window-config)
-  (evil-ex-define-cmd "tabp[rev]" 'eyebrowse-prev-window-config)
-  (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
-  (evil-ex-define-cmd "tabs" 'eyebrowse-switch-to-window-config)
 
   ;; Too easy to be scrolling with C-u/d and then hit j and have it insert a
   ;; line accidentally.

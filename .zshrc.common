@@ -185,6 +185,7 @@ alias htop='TERM=screen-256color htop'
 alias info='TERM=screen-256color info --vi-keys'
 alias g='git'
 alias v='vim'
+alias e='emacsclient -c'
 alias lag='ag --pager=less'
 alias alert='echo -ne "\a"';
 
