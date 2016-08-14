@@ -614,7 +614,8 @@ and C-g binding."
   (setq-default evil-split-window-below)
 
   ;; Keep line numbers right aligned and dynamically padded
-  (setq-default linum-format 'dynamic)
+  (unless (display-graphic-p (selected-frame))
+    (setq-default linum-format 'dynamic))
 
   ;; Add a space between line number column and the text buffer, because these
   ;; run into each other when emacs renders inside a terminal. However, when in
