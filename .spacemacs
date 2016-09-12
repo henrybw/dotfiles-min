@@ -26,6 +26,8 @@ values."
      better-defaults
      emacs-lisp
      lua
+     ponylang
+     c-c++
      osx
      git
      markdown
@@ -775,6 +777,7 @@ function name font face."
     (setq fill-column 81)  ; So the fill column is drawn *after* the 80th column of text
     ;; Line up each line in a paren list with the position of the opening paren
     (c-set-offset 'arglist-close 'c-lineup-arglist)
+    (c-set-offset 'innamespace 0)
     ;; Force preprocessor macros to be aligned to the first column
     (setq c-electric-pound-behavior '(alignleft))
     ;; Make C block comments continue with stars on each line
