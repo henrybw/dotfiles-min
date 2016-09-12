@@ -257,7 +257,8 @@ set cinoptions+=jN,JN  " Fixes for Java/JavaScript indentation
 " Settings for coding styles that prefer certain constructs be unindented
 set cinoptions+=:0  " Indent case labels
 set cinoptions+=t0  " Don't indent function return type declaration
-set cinoptions+=g2  " C++ scope labels indented by half shiftwidth (Google inspired)
+set cinoptions+=g0  " C++ scope labels not indented
+set cinoptions+=N-s " Don't indent namespace blocks
 
 set linebreak
 set nostartofline
