@@ -1,9 +1,5 @@
 # inspired by http://zanshin.net/2013/09/05/my-tmux-configuration/
 
-# use UTF8
-set -g utf8
-set-window-option -g utf8 on
-
 # set scrollback history to 10000 (10k)
 set -g history-limit 10000
 
