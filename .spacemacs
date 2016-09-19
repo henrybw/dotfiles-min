@@ -26,7 +26,6 @@ values."
      better-defaults
      emacs-lisp
      lua
-     ponylang
      c-c++
      osx
      git
@@ -773,11 +772,15 @@ function name font face."
     ;; C/C++ formatting style should be K&R, but with 4-space indents
     (setq c-default-style "k&r")
     (setq c-basic-offset 4)
+    (setq evil-shift-width 4)  ; FOR SRS
     (setq tab-width 4)
     (setq fill-column 81)  ; So the fill column is drawn *after* the 80th column of text
     ;; Line up each line in a paren list with the position of the opening paren
     (c-set-offset 'arglist-close 'c-lineup-arglist)
     (c-set-offset 'innamespace 0)
+    (c-set-offset 'access-label '-)   ; C++ access modifiers indented at same
+                                      ; level as class
+    (c-set-offset 'label (vector 0))  ; goto labels always indented to 0 column
     ;; Force preprocessor macros to be aligned to the first column
     (setq c-electric-pound-behavior '(alignleft))
     ;; Make C block comments continue with stars on each line
@@ -818,6 +821,10 @@ function name font face."
             (lambda ()
               (use-local-map (copy-keymap term-mode-map))
               (local-set-key (kbd "C-g") 'comint-interrupt-subjob)))
+
+  ;; Always assume C++ mode for header files, since it doesn't adversely affect
+  ;; C indentation.
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
   ;; irony-mode stuff (disabled)
   ;; (global-flycheck-mode -1)
