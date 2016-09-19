@@ -774,6 +774,7 @@ function name font face."
     (setq c-basic-offset 4)
     (setq evil-shift-width 4)  ; FOR SRS
     (setq tab-width 4)
+    (setq c-label-minimum-indentation 0)
     (setq fill-column 81)  ; So the fill column is drawn *after* the 80th column of text
     ;; Line up each line in a paren list with the position of the opening paren
     (c-set-offset 'arglist-close 'c-lineup-arglist)
