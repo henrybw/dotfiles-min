@@ -526,7 +526,6 @@ and C-g binding."
 
   ;; Mimic the behavior of the "r" formatoption in vim (i.e. automatically
   ;; insert the current comment leader after hitting RET).
-  ;; TODO HBW - join comment lines
   (defun new-line-with-comment ()
     (interactive)
     ;; c-indent-new-comment-line can intelligently continue comment leader
@@ -538,6 +537,57 @@ and C-g binding."
       (comment-indent-new-line)))
   (define-key evil-motion-state-map (kbd "RET") 'new-line-with-comment)
   (define-key evil-insert-state-map (kbd "RET") 'new-line-with-comment)
+
+  ;; Mimic the behavior of the "j" formatoption in vim (i.e. automatically
+  ;; remove comment leaders when joining comment lines). Taken from:
+  ;; https://bitbucket.org/lyro/evil/issues/606/joining-comment-lines#comment-25313052
+  ;; http://emacs.stackexchange.com/questions/7519/how-can-i-detect-if-the-current-character-is-a-comment-character-for-that-major
+  (evil-define-operator evil-join-comment-aware (beg end)
+    "Join the selected lines."
+    :motion evil-line
+
+    (defun pull-up-line ()
+      "Join the following line onto the current one (analogous to `C-e', `C-d') or
+`C-u M-^' or `C-u M-x join-line'.
+
+If the current line is a comment and the pulled-up line is also a comment,
+remove the comment characters from that line."
+      (interactive)
+      (join-line -1)
+      ;; If the current line is a comment
+      (when (nth 4 (syntax-ppss))
+        ;; Remove the comment prefix chars from the pulled-up line if present
+        (save-excursion
+          (forward-char)
+          ;; Delete all comment-start or space characters
+          (while (looking-at
+                  (concat "\\s<" ; comment-start char as per syntax table
+                          "\\|" (substring comment-start 0 1) ; first char of `comment-start'
+                          (when (bound-and-true-p c-buffer-is-cc-mode)
+                            "\\|\\*[^/]")  ; leading '*' chars for C comments
+                          "\\|" "\\s-")) ; extra spaces
+            (delete-forward-char 1)))))
+
+    (let* ((count (count-lines beg end))
+           ;; we join pairs at a time
+           (count (if (> count 1) (1- count) count))
+           ;; the mark at the middle of the joined pair of lines
+           (fixup-mark (make-marker)))
+      (dotimes (var count)
+        (if (and (bolp) (eolp))
+            (join-line 1)
+          (let* ((end (line-beginning-position 3))
+                 (fill-column (1+ (- end beg))))
+            ;; save the mark at the middle of the pair
+            (set-marker fixup-mark (line-end-position))
+            ;; join it via pull-up
+            (pull-up-line)
+            ;; jump back to the middle
+            (goto-char fixup-mark)
+            (fixup-whitespace))))
+      ;; remove the mark
+      (set-marker fixup-mark nil)))
+  (define-key evil-normal-state-map (kbd "J") 'evil-join-comment-aware)
 
   (evil-define-key-for-states '(evil-insert-state-map evil-motion-state-map)
                               (kbd "M-j") 'evil-ret)
