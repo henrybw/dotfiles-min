@@ -32,7 +32,6 @@ values."
      markdown
      org
      cscope
-     auto-completion
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
@@ -48,7 +47,6 @@ values."
    dotspacemacs-additional-packages
    '(
      undo-tree
-     ac-etags
      bison-mode
      polymode
      ;; XXX HBW - local doesn't work for some reason...
@@ -324,6 +322,34 @@ maps STATES."
   (evil-define-key-for-states evil-non-insert-states (kbd "<f2>") 'what-face)
   (define-key evil-insert-state-map (kbd "<f2>") 'what-face)
 
+  ;; Spacemacs added a "check large file" hook when visiting files to back off
+  ;; from trying to parse large files and slow down performance. However, this
+  ;; change also introduced a mandatory prompt for these cases. This doesn't
+  ;; play very nicely with automatically reloading tags databases, which can
+  ;; often grow very large, resulting in constant and intrusive prompts to load
+  ;; the tags database literally.
+  ;;
+  ;; This is a stupid hack, done using emacs's advice mechanism, to override
+  ;; the spacemacs large file check and always open tags files literally without
+  ;; prompting.
+  (when (fboundp 'spacemacs/check-large-file)
+    (advice-add 'spacemacs/check-large-file
+                :before-while (lambda ()
+                                (if (let ((case-fold-search nil))
+                                      (string-match-p
+                                       "TAGS"
+                                       (file-name-base (buffer-file-name))))
+                                    ;; Just open the tags file literally without
+                                    ;; throwing up a prompt.
+                                    (progn
+                                      (setq buffer-read-only t)
+                                      (buffer-disable-undo)
+                                      (fundamental-mode)
+                                      nil)
+                                  ;; Not a tags file, run the original
+                                  ;; check-large-file function as usual.
+                                  t))))
+
   ;;;
   ;;; Key bindings
   ;;;
@@ -361,14 +387,6 @@ and C-g binding."
   ;; SPC-` is already defined to something, which overrides our binding
   (define-key evil-normal-state-map (kbd "SPC `") nil)
   (evil-leader/set-key (kbd "`" ) 'spacemacs/alternate-buffer)
-
-  ;; Reload .spacemacs (instead of just syncing configuration layers)
-  (defun dotspacemacs/reload-dotfile ()
-    (interactive)
-    (dotspacemacs/load-file)
-    (dotspacemacs/user-init)
-    (dotspacemacs/user-config))
-  (evil-leader/set-key "f e r" 'dotspacemacs/reload-dotfile)
 
   (evil-leader/set-key "s c"
     (defalias 'evil-clear-all-search-highlights
@@ -719,10 +737,8 @@ remove the comment characters from that line."
   (setq-default font-lock-maximum-decoration t)
 
   (setq-default helm-buffers-fuzzy-matching t)
-  (setq-default helm-recentf-fuzzy-match t)
   (setq-default helm-etags-fuzzy-match t)
 
-  (global-company-mode nil)
   (global-linum-mode t)
   (auto-fill-mode)
 
@@ -872,10 +888,6 @@ function name font face."
             (lambda ()
               (use-local-map (copy-keymap term-mode-map))
               (local-set-key (kbd "C-g") 'comint-interrupt-subjob)))
-
-  ;; Always assume C++ mode for header files, since it doesn't adversely affect
-  ;; C indentation.
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
   ;; irony-mode stuff (disabled)
   ;; (global-flycheck-mode -1)
