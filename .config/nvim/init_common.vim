@@ -43,7 +43,7 @@ let g:BufKillCreateMappings = 1
 syntax on
 silent! colorscheme aurora
 
-set number
+set nonumber
 set cmdheight=1
 set nohlsearch
 set noincsearch
