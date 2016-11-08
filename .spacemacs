@@ -272,6 +272,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; irony-mode settings (disabled for now)
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables c-c++-enable-clang-support nil)))
+
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   )
 
 (defun dotspacemacs/user-config ()
