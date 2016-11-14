@@ -157,7 +157,7 @@ function precmd() {
 
 # Set up completion
 autoload -U compinit
-compinit -i
+compinit
 
 # Compile zcompdump if necessary
 if [ ~/.zcompdump -nt ~/.zcompdump.zwc -o ! -e ~/.zcompdump.zwc ]; then
