@@ -345,7 +345,9 @@
    `(jde-java-font-lock-constant-face ((t (:foreground ,const))))
    `(jde-java-font-lock-modifier-face ((t (:foreground ,key3))))
    `(jde-jave-font-lock-protected-face ((t (:foreground ,keyword))))
-   `(jde-java-font-lock-number-face ((t (:foreground ,var))))))
+   `(jde-java-font-lock-number-face ((t (:foreground ,var))))
+   `(agda2-highlight-symbol-face ((,class (:foreground ,operator))))
+   ))
 
 ;;;###autoload
 (when load-file-name
