@@ -276,6 +276,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+
+  ;; Yes, I set environment variables in my .zshrc. It's not good practice, but
+  ;; you don't need to keep reminding me about that, emacs...
+  (setq-default exec-path-from-shell-check-startup-files nil)
   )
 
 (defun dotspacemacs/user-config ()
