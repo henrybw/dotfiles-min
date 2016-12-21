@@ -33,6 +33,7 @@ values."
      markdown
      org
      cscope
+     agda
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
@@ -360,7 +361,7 @@ maps STATES."
 
   ;; C-c as general purpose escape key sequence.
   ;; A HUGE THANK YOU TO: https://www.emacswiki.org/emacs/Evil#toc16
-  (defun my-esc (prompt)
+  (defun ctrl-c-escape (prompt)
     "Functionality for escaping generally. Includes exiting Evil insert state
 and C-g binding."
     (cond
@@ -376,7 +377,14 @@ and C-g binding."
      ;; don't need this. eq overriding-terminal-local-map evil-read-key-map)
      ;; (keyboard-quit) (kbd ""))
      (t (kbd "C-g"))))
-  (define-key key-translation-map (kbd "C-c") 'my-esc)
+  (defun ctrl-g-major-mode (prompt)
+    "Swaps the traditional emacs C-c major mode prefix key with C-g."
+    (if (or (evil-insert-state-p) (evil-normal-state-p) (evil-replace-state-p)
+            (evil-visual-state-p))
+        (kbd "C-c")
+      (kbd "C-g")))
+  (define-key key-translation-map (kbd "C-g") 'ctrl-g-major-mode)
+  (define-key key-translation-map (kbd "C-c") 'ctrl-c-escape)
 
   ;; Works around the fact that Evil uses read-event directly when in operator
   ;; state, which doesn't use the key-translation-map.
