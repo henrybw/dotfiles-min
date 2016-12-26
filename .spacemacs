@@ -376,6 +376,8 @@ and C-g binding."
      ((or (evil-insert-state-p) (evil-normal-state-p) (evil-replace-state-p)
           (evil-visual-state-p))
       [escape])
+     ;; Helm Projectile throws an error when using C-g to quit
+     (projectile-mode [escape])
      ;; This is the best way I could infer for now to have C-c work during
      ;; evil-read-key. Note: As long as I return [escape] in normal-state, I
      ;; don't need this. eq overriding-terminal-local-map evil-read-key-map)
