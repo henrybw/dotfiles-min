@@ -8,9 +8,6 @@ Plug 'vim-scripts/closetag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tmhedberg/matchit'
 Plug 'hynek/vim-python-pep8-indent'
-Plug 'majutsushi/tagbar'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/bufkill.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -18,7 +15,6 @@ Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'henrybw/vim-colors-aurora'
-Plug 'guns/xterm-color-table.vim'
 Plug '$HOME/.vim/custom/cscope-maps'
 
 call plug#end()
@@ -49,6 +45,7 @@ set cmdheight=1
 set nohlsearch
 set noincsearch
 set laststatus=2
+set ruler
 
 " Make cursorline only show up on the currently focused window
 set cursorline
@@ -57,14 +54,6 @@ augroup cursorline
     autocmd WinEnter,BufEnter * setlocal cursorline
     autocmd WinLeave,BufLeave * setlocal nocursorline
 augroup END
-
-" Airline-specific config and tweaks
-let g:airline_theme = 'powerlineish'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline_detect_modified = 0  " This can get reaaaaaally slow
-let g:airline_extensions = ['ctrlp', 'netrw', 'tabline', 'tagbar', 'whitespace']
 
 " For the trailing whitespace plugin
 hi ExtraWhitespace ctermbg=red guibg=red
@@ -219,9 +208,6 @@ endif
 " Disable SQL omnicompletion because it makes Esc super slow
 let g:omni_sql_no_default_maps = 1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
-
-" For the Tagbar plugin
-nmap <leader>t :TagbarToggle<CR>
 
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
