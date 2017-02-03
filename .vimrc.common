@@ -282,7 +282,7 @@ endfun
 
 augroup filetype
     autocmd!
-    autocmd FileType * call SetFiletypeConditionalConfig()
+    autocmd FileType * call g:SetFiletypeConditionalConfig()
 augroup END
 
 "
