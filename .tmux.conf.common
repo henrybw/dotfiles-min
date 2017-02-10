@@ -28,10 +28,9 @@ bind - split-window -v -c '#{pane_current_path}'
 # make the current window the first window
 bind T swap-window -t 1
 
-# swap copy-mode and paste-buffer keys so that PREFIX ] enters copy mode, which
-# mirrors the default telnet escape sequence.
-bind ] copy-mode
-bind [ paste-buffer
+# default copy/paste mode (included explicitly because I used to have them switched)
+bind [ copy-mode
+bind ] paste-buffer
 
 # map Vi movement keys as pane movement keys
 # using ctrl instead of the actual keys removes
