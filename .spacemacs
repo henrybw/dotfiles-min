@@ -38,9 +38,6 @@ values."
             shell-default-shell 'ansi-term
             shell-default-height 30
             shell-default-position 'bottom)
-     ;; irony-mode
-     ;; spell-checking
-     ;; syntax-checking
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -50,7 +47,6 @@ values."
    '(
      undo-tree
      bison-mode
-     polymode
      ;; XXX HBW - local doesn't work for some reason...
      (vim-aurora :location "~/.emacs.d/private/local")
      )
@@ -764,6 +760,7 @@ remove the comment characters from that line."
   ;;; Formatting
   ;;;
 
+  (setq-default git-commit-summary-max-length 72)
   (setq-default comment-multi-line t)
   (setq-default truncate-lines t)  ; Turn off word wrap
 
