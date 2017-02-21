@@ -491,8 +491,7 @@ and C-g binding."
   ;; Open tags in splits
   (define-key evil-window-map (kbd "]")
     (defalias 'evil-split-jump-to-tag
-      (lambda ()
-        (interactive) (evil-window-split-with-focus) (evil-jump-to-tag))))
+      (lambda () (interactive) (evil-window-split-with-focus) (evil-jump-to-tag))))
   (define-key evil-window-map (kbd "\\")
     (defalias 'evil-vsplit-jump-to-tag
       (lambda () (interactive) (evil-window-vsplit-with-focus) (evil-jump-to-tag))))
