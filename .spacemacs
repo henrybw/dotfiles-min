@@ -745,6 +745,11 @@ remove the comment characters from that line."
   ;; Make powerline separator an arrow like it is in vim by default
   (setq powerline-default-separator 'arrow)
 
+  ;; Disable the built-in VC package, which gets picked up by the modeline,
+  ;; because we use per-VCS tools instead (e.g. magit). Plus, at least for git,
+  ;; this causes stale revision information to be displayed in the modeline.
+  (setq-default vc-handled-backends nil)
+
   (show-paren-mode t)
   (setq-default spacemacs-show-trailing-whitespace t)
   (setq-default font-lock-maximum-decoration t)
