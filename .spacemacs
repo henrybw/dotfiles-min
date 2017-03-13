@@ -866,7 +866,8 @@ function name font face."
     (c-set-offset 'innamespace 0)
     (c-set-offset 'access-label '-)   ; C++ access modifiers indented at same
                                       ; level as class
-    (c-set-offset 'label (vector 0))  ; goto labels always indented to 0 column
+    (c-set-offset 'label (vector 0))  ; goto labels are always unindented
+    (c-set-offset 'inextern-lang 0)   ; extern "C" is unindented
     ;; Force preprocessor macros to be aligned to the first column
     (setq c-electric-pound-behavior '(alignleft))
     ;; Make C block comments continue with stars on each line
