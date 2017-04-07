@@ -26,7 +26,6 @@ values."
      better-defaults
      emacs-lisp
      lua
-     python
      c-c++
      osx
      git
@@ -771,9 +770,12 @@ remove the comment characters from that line."
   ;; Always re-read the tags file without prompting
   (setq-default tags-revert-without-query t)
 
-  ;; Disable smart autocompletion of quotes
-  (sp-pair "'" nil :actions :rem)
-  (sp-pair "\"" nil :actions :rem)
+  ;; Disable smart autocompletion of quotes, brackets, etc.
+  (sp-pair "'"  nil :actions '(wrap))
+  (sp-pair "\"" nil :actions '(wrap))
+  (sp-pair "\(" nil :actions '(wrap))
+  (sp-pair "\[" nil :actions '(wrap))
+  (sp-pair "\{" nil :actions '(wrap))
 
   ;;; These were taken from https://www.emacswiki.org/emacs/NoTabs#toc2
 
