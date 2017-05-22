@@ -32,7 +32,6 @@ values."
      markdown
      org
      cscope
-     agda
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
@@ -50,7 +49,7 @@ values."
      (vim-aurora :location "~/.emacs.d/private/local")
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(smartparens)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -237,21 +236,20 @@ values."
   ;; size to make separators look not too crappy.
   (cond ((equal system-type 'darwin)
          (setq-default dotspacemacs-default-font '("Menlo"
-                                      :size 10
-                                      :weight normal
-                                      :width normal
-                                      :powerline-scale 1.5)))
+                                                   :size 12
+                                                   :weight normal
+                                                   :width normal)))
         ((equal system-type 'gnu/linux)
          (setq-default dotspacemacs-default-font '("Hack"
-                                      :size 12
-                                      :weight normal
-                                      :width normal
-                                      :powerline-scale 1.0)))
+                                                   :size 12
+                                                   :weight normal
+                                                   :width normal
+                                                   :powerline-scale 1.0)))
         (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                     :size 12
-                                     :weight normal
-                                     :width normal
-                                     :powerline-scale 1.1)))
+                                                  :size 12
+                                                  :weight normal
+                                                  :width normal
+                                                  :powerline-scale 1.1)))
   )
 
 (defun dotspacemacs/user-init ()
@@ -713,10 +711,8 @@ remove the comment characters from that line."
   (menu-bar-mode -1)
 
   ;; When in terminal, change the modeline to be more vim-like, because it
-  ;; doesn't rely on glyphs and symbols as much (and, unlike the GUI, line
-  ;; height is strictly uniform and cannot be changed).
-  (unless (display-graphic-p (selected-frame))
-    (powerline-vim-theme))
+  ;; and symbols as much.
+  (powerline-vim-theme)
 
   ;; Always display column number
   (setq-default column-number-mode t)
