@@ -17,9 +17,14 @@ if (which fortune &> /dev/null && which cowsay &> /dev/null); then
     fortune hitchhiker | cowsay -f dragon-and-cow
 fi
 
-if (command -v zsh > /dev/null) && [[ "$(zsh -c 'echo $ZSH_VERSION')" > 5 ]]; then
+# https://stackoverflow.com/a/29394504
+function ver {
+    printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' ')
+}
+
+if (command -v zsh > /dev/null) && [ $(ver "$(zsh -c 'echo $ZSH_VERSION')") -gt $(ver 5.0.0) ]; then
     ZSH_PATH=$(which zsh)
-    SHELL="$ZSH_PATH" exec $ZSH_PATH -l
+    SHELL="$ZSH_PATH" exec zsh -l
 else
     if [ -e $HOME/local ]; then
         export HISTFILE=$HOME/local/.bash_history
@@ -31,6 +36,22 @@ else
     alias ll='ls -l'
     alias ll='ls -lh'
     alias lla='ls -lah'
+    alias info="info --vi-keys"
+    alias grep='grep --color=always'
+    alias egrep='egrep --color=always'
+    alias tmux='tmux -2'
+    alias ta='tmux attach-session -t'
+    alias tl='tmux list-sessions'
+    alias tn='tmux new-session -s'
+    alias irssi='TERM=screen-256color irssi'
+    alias cgdb='TERM=screen-256color cgdb'
+    alias htop='TERM=screen-256color htop'
+    alias info='TERM=screen-256color info --vi-keys'
+    alias g='git'
+    alias v='vim'
+    alias e='emacsclient -c'
+    alias lag='ag --pager=less'
+    alias alert='echo -ne "\a"';
 
     # Set the gaudy prompt.
 
