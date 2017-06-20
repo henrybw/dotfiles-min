@@ -267,6 +267,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables c-c++-enable-clang-support nil)))
 
+  ;; Squelch "install this layer" prompts
+  (setq-default dotspacemacs-enable-lazy-installation nil)
+
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
@@ -906,6 +909,8 @@ function name font face."
             (lambda ()
               (use-local-map (copy-keymap term-mode-map))
               (local-set-key (kbd "C-g") 'comint-interrupt-subjob)))
+
+  (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
 
   ;; irony-mode stuff (disabled)
   ;; (global-flycheck-mode -1)
