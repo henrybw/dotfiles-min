@@ -109,18 +109,6 @@ function vi_mode_prompt_info() {
     echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
 }
 
-# Git branch/dirty indicator
-function git_status_info() {
-    local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
-    if [ "$branch" ]; then
-        local git_status="$(git status --untracked-files=no --porcelain 2>/dev/null)"
-        if [ "$git_status" ]; then
-            local dirty="*";
-        fi
-        echo " <$branch$dirty>"
-    fi
-}
-
 # Runs each time before the shell prompt is printed. We override this to allow
 # zshrc scripts source'd after this one to hook into the prompt by setting
 # $STATUS_EXT. However, we don't allow the prompt itself to be extended because
@@ -148,7 +136,7 @@ function precmd() {
         _host_colored="%K{7}${_host_colored}%k"
     fi
 
-    PROMPT="%{${_host_colored}%} %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(git_status_info)$reset_color$STATUS_EXT"$'\n'
+    PROMPT="%{${_host_colored}%} %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$reset_color$STATUS_EXT"$'\n'
     PROMPT="$PROMPT$_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
     RPROMPT='$(vi_mode_prompt_info)'
     export PROMPT
