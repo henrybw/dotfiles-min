@@ -103,6 +103,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(solarized-dark
+                         tsdh-light
                          solarized-light
                          monokai
                          spacemacs-dark
@@ -393,6 +394,7 @@ and C-g binding."
   (define-key evil-operator-state-map (kbd "C-c") 'keyboard-quit)
   (setq-default evil-escape-key-sequence (kbd "C-c"))
   (setq-default evil-esc-delay 0)
+  (setq-default evil-want-Y-yank-to-eol t)
 
   ;; Muscle memory from my vimrc leader keybindings
   (evil-leader/set-key (kbd "\\") 'spacemacs/toggle-fill-column-indicator)
