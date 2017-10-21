@@ -409,6 +409,12 @@ and C-g binding."
         (evil-ex-nohighlight)
         (evil-search-highlight-persist-remove-all))))
 
+  (evil-leader/set-key "t t"
+    (defalias 'evil-toggle-trailing-whitespace
+      (lambda ()
+        (interactive)
+        (setq show-trailing-whitespace (not show-trailing-whitespace)))))
+
   ;; Port of cscope_maps.vim
   ;; XXX - TYPOS ლ(ಠ益ಠლ)
   (defalias 'helm-cscope-find-calling-this-function
