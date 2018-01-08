@@ -57,8 +57,11 @@ bind L resize-pane -R 5
 
 # some more vi key bindings
 set-window-option -g mode-keys vi
-bind -t vi-copy 'v' begin-selection
-bind -t vi-copy 'y' copy-selection
+bind -Tcopy-mode-vi 'v' send -X begin-selection
+bind -Tcopy-mode-vi 'y' send -X copy-selection
+# prior to 2.4, binding keys to vi-copy looked like this:
+# bind -t vi-copy 'v' begin-selection
+# bind -t vi-copy 'y' copy-selection
 
 # widen the main pane for the main-vertical layout, so my prompt doesn't get
 # truncated as easily.
