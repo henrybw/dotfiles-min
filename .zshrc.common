@@ -1,8 +1,6 @@
-#
 # I used to use oh-my-zsh, but it was way too bloated and made my shell startup
 # times frustratingly slow. So I ripped out all the good bits and threw away the
 # rest of oh-my-zsh.
-#
 
 #
 # Color config
@@ -100,10 +98,8 @@ bindkey -M vicmd v edit-command-line
 #
 # Prompt config
 #
-
 setopt promptsubst
 
-# Vi mode indicator
 function vi_mode_prompt_info() {
     local MODE_INDICATOR="%{$fg_bold[magenta]%}<%{$reset_color%}%{$fg[magenta]%}<<%{$reset_color%}"
     echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
