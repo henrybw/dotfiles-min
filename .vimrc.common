@@ -24,14 +24,6 @@ Plug '$HOME/.vim/custom/cscope-maps'
 
 call plug#end()
 
-" For fzf
-nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>g :BCommits<CR>
-nnoremap <Leader>s :BLines<CR>
-nnoremap <Leader><C-]> :Tags<CR>
-nnoremap <C-p> :Files<CR>
-
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
 
@@ -215,6 +207,14 @@ let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 cmap w!! w !sudo tee > /dev/null %
 
 nmap <leader><CR> :FixWhitespace<CR>
+
+" For fzf
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>g :BCommits<CR>
+nnoremap <Leader>/ :BLines<CR>
+nnoremap <Leader><C-]> :Tags<CR>
+nnoremap <C-p> :Files<CR>
 
 "
 " Formatting
