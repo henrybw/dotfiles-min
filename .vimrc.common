@@ -12,21 +12,25 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'junegunn/fzf'
+" XXX fzf in itself is not a Vim plugin, and the official repository only
+" provides the basic wrapper function for Vim and it's up to the users to write
+" their own Vim commands with it, because many users of fzf are not familiar
+" with Vimscript and are looking for the 'default' implementation of the
+" features they can find in the alternative Vim plugins.
+Plug 'junegunn/fzf.vim'
 Plug 'henrybw/vim-colors-aurora'
 Plug '$HOME/.vim/custom/cscope-maps'
 
 call plug#end()
 
-" For the CtrlP plugin
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg)$',
-  \ 'file': '\v\.(pyc|so|swp|o)$',
-  \ }
-let g:ctrlp_user_command = [
-  \ '.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'
-  \ ]
+" For fzf
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>g :BCommits<CR>
+nnoremap <Leader>s :BLines<CR>
+nnoremap <Leader><C-]> :Tags<CR>
+nnoremap <C-p> :Files<CR>
 
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
