@@ -1069,6 +1069,7 @@ function name font face."
 
   (defun c-mode-common-settings ()
     ;; C/C++ formatting style should be K&R, but with 4-space indents
+    (c-set-style "k&r")
     (setq c-default-style "k&r")
     (setq c-basic-offset 4)
     (setq evil-shift-width 4)  ; FOR SRS
@@ -1109,6 +1110,7 @@ function name font face."
     )
 
   (add-hook 'c-mode-common-hook 'c-mode-common-settings)
+  (remove-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)
 
   (add-hook 'shell-mode-hook
             (lambda ()
