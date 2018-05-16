@@ -1098,8 +1098,7 @@ function name font face."
 
     ;; Highlight function calls and #if 0 blocks
     (font-lock-add-keywords nil
-                            '(
-                              ;; XXX HBW - this doesn't work reliably, and can get dropped in
+                            '(;; XXX HBW - this doesn't work reliably, and can get dropped in
                               ;; certain cases (like when undoing an edit inside a function name).
                               (c-mode-highlight-function-calls . font-lock-function-name-face)
                               ;; Sometimes operations like undo will confuse font-lock and the
