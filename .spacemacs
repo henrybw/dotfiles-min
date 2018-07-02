@@ -624,8 +624,9 @@ and C-g binding."
 
   ;; Port of cscope_maps.vim
   ;; XXX - TYPOS ლ(ಠ益ಠლ)
-  (defalias 'helm-cscope-find-calling-this-function
-    'helm-cscope-find-calling-this-funtcion)
+  (when (fboundp 'helm-cscope-find-calling-this-funtcion)
+    (defalias 'helm-cscope-find-calling-this-function
+      'helm-cscope-find-calling-this-funtcion))
   (let ((cscope-key-maps
          '(("s" . helm-cscope-find-this-symbol)
            ("g" . helm-cscope-find-global-definition)
