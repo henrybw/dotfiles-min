@@ -42,6 +42,8 @@ This function should only modify configuration layer settings."
      helm
      better-defaults
      emacs-lisp
+     lua
+     rust
      c-c++
      python
      git
@@ -441,7 +443,7 @@ It should only modify the values of Spacemacs settings."
   ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
   ;; size to make separators look not too crappy.
   (cond ((equal system-type 'darwin)
-         (setq-default dotspacemacs-default-font '("Menlo"
+         (setq-default dotspacemacs-default-font '("SF Mono"
                                                    :size 12
                                                    :weight normal
                                                    :width normal)))
@@ -702,6 +704,15 @@ and C-g binding."
   ;; we undefine it.
   (define-key evil-normal-state-map "zr" nil)
 
+  ;; Make tag jumping be intelligent for other language modes
+  (define-key evil-normal-state-map (kbd "C-]")
+    (defalias 'evil-smart-jump-to-tag
+      (lambda ()
+        (interactive)
+        (if (derived-mode-p 'rust-mode)
+            (racer-find-definition)
+          (evil-jump-to-tag)))))
+
   ;; Open tags in splits
   (define-key evil-window-map (kbd "]")
     (defalias 'evil-split-jump-to-tag
@@ -897,6 +908,12 @@ remove the comment characters from that line."
   (delete 'shell-mode evil-insert-state-modes)
   (add-to-list 'evil-emacs-state-modes 'term-mode)
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
+
+  (when (equal system-type 'darwin)
+   ;; Some native system hotkeys get intercepted by emacs for some reason
+   (global-set-key (kbd "H-h") 'ns-do-hide-emacs)
+   (global-set-key (kbd "H-M-h") 'ns-do-hide-others)
+   (global-set-key (kbd "H-m") 'iconify-frame))
 
   ;;;
   ;;; Theming
@@ -1125,16 +1142,11 @@ function name font face."
               (use-local-map (copy-keymap term-mode-map))
               (local-set-key (kbd "C-g") 'comint-interrupt-subjob)))
 
-  (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
+  ;; https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md
+  (add-hook 'rust-mode-hook (lambda ()
+                              (setq fill-column 100)))
 
-  ;; irony-mode stuff (disabled)
-  ;; (global-flycheck-mode -1)
-  ;; Tweak default flycheck face to be less offensive
-  ;; (custom-set-faces
-  ;;   '(default ((t (:background nil))))
-  ;;   '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
-  ;;   '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
-  ;;   '(flycheck-error ((((class color) (min-colors 89)) (:background nil :foreground "red" :bold t)))))
+  (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
 
   (require 'vim-aurora)
   (enable-theme 'vim-aurora)
