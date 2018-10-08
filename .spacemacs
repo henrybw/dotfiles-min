@@ -716,10 +716,18 @@ and C-g binding."
   ;; Open tags in splits
   (define-key evil-window-map (kbd "]")
     (defalias 'evil-split-jump-to-tag
-      (lambda () (interactive) (evil-window-split-with-focus) (evil-jump-to-tag))))
+      (lambda () (interactive)
+        (evil-window-split-with-focus)
+        (if (derived-mode-p 'rust-mode)
+            (racer-find-definition)
+          (evil-jump-to-tag)))))
   (define-key evil-window-map (kbd "\\")
     (defalias 'evil-vsplit-jump-to-tag
-      (lambda () (interactive) (evil-window-vsplit-with-focus) (evil-jump-to-tag))))
+      (lambda () (interactive)
+        (evil-window-vsplit-with-focus)
+        (if (derived-mode-p 'rust-mode)
+            (racer-find-definition)
+          (evil-jump-to-tag)))))
 
   ;; Support for tag completion in the ex command line. Implementation adapted
   ;; from tags-complete-tags-table-file.
