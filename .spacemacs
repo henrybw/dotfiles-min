@@ -704,30 +704,29 @@ and C-g binding."
   ;; we undefine it.
   (define-key evil-normal-state-map "zr" nil)
 
+  (defun tag-jump ()
+    (if (derived-mode-p 'rust-mode)
+        (racer-find-definition)
+      (evil-jump-to-tag)))
+
   ;; Make tag jumping be intelligent for other language modes
   (define-key evil-normal-state-map (kbd "C-]")
     (defalias 'evil-smart-jump-to-tag
       (lambda ()
         (interactive)
-        (if (derived-mode-p 'rust-mode)
-            (racer-find-definition)
-          (evil-jump-to-tag)))))
+        (tag-jump))))
 
   ;; Open tags in splits
   (define-key evil-window-map (kbd "]")
     (defalias 'evil-split-jump-to-tag
       (lambda () (interactive)
         (evil-window-split-with-focus)
-        (if (derived-mode-p 'rust-mode)
-            (racer-find-definition)
-          (evil-jump-to-tag)))))
+        (tag-jump))))
   (define-key evil-window-map (kbd "\\")
     (defalias 'evil-vsplit-jump-to-tag
       (lambda () (interactive)
         (evil-window-vsplit-with-focus)
-        (if (derived-mode-p 'rust-mode)
-            (racer-find-definition)
-          (evil-jump-to-tag)))))
+        (tag-jump))))
 
   ;; Support for tag completion in the ex command line. Implementation adapted
   ;; from tags-complete-tags-table-file.
@@ -1153,6 +1152,8 @@ function name font face."
   ;; https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md
   (add-hook 'rust-mode-hook (lambda ()
                               (setq fill-column 100)))
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
 
   (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
 
