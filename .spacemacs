@@ -1000,7 +1000,8 @@ remove the comment characters from that line."
   ;;; Formatting
   ;;;
 
-  (setq-default git-commit-summary-max-length 72)
+  (setq-default git-commit-summary-max-length 75)
+  (setq-default git-commit-fill-column 75)
   (setq-default comment-multi-line t)
   (setq-default truncate-lines t)  ; Turn off word wrap
 
