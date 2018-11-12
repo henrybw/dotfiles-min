@@ -1157,8 +1157,8 @@ function name font face."
 
   (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
 
-  (require 'vim-aurora)
-  (enable-theme 'vim-aurora)
+  (require 'borealis)
+  (enable-theme 'borealis)
   (set-transparent-bg)
   )
 
