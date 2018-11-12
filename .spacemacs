@@ -335,12 +335,12 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 95
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 90
+   dotspacemacs-inactive-transparency 95
 
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
@@ -1151,7 +1151,10 @@ function name font face."
 
   ;; https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md
   (add-hook 'rust-mode-hook (lambda ()
-                              (setq fill-column 100)))
+                              (setq fill-column 100)
+                              (setq tab-width 4)
+                              (setq evil-shift-width 4)  ; FOR SRS
+                              ))
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
 
