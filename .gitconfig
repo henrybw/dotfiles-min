@@ -16,3 +16,5 @@
 	autosetuprebase = always
 [push]
 	default = simple
+[pager]
+	branch = false
