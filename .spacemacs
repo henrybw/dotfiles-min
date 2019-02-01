@@ -611,13 +611,6 @@ and C-g binding."
   (define-key evil-normal-state-map (kbd "SPC `") nil)
   (evil-leader/set-key (kbd "`" ) 'spacemacs/alternate-buffer)
 
-  (evil-leader/set-key "s c"
-    (defalias 'evil-clear-all-search-highlights
-      (lambda ()
-        (interactive)
-        (evil-ex-nohighlight)
-        (evil-search-highlight-persist-remove-all))))
-
   (evil-leader/set-key "t t"
     (defalias 'evil-toggle-trailing-whitespace
       (lambda ()
