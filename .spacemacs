@@ -864,9 +864,11 @@ remove the comment characters from that line."
   (add-hook 'helm-mode-hook 'add-helm-keymaps)
 
   ;; I was not convinced :P
-  ;; <http://spacemacs.org/doc/DOCUMENTATION.html#orgheadline59>
-  (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
-  (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
+  ;; <http://spacemacs.org/doc/DOCUMENTATION.html#the-vim-surround-case>
+  (defun restore-vim-surround ()
+    (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
+    (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region))
+  (add-hook 'evil-surround-mode-hook 'restore-vim-surround)
 
   ;; For some reason this doesn't work quite correctly out of the box
   (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward)
