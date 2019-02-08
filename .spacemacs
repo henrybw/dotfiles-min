@@ -445,7 +445,7 @@ It should only modify the values of Spacemacs settings."
   (cond ((equal system-type 'darwin)
          (setq-default dotspacemacs-default-font '("SF Mono"
                                                    :size 12
-                                                   :weight normal
+                                                   :weight semibold
                                                    :width normal)))
         ((equal system-type 'gnu/linux)
          (setq-default dotspacemacs-default-font '("Hack"
