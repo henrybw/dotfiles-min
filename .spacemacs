@@ -68,7 +68,7 @@ This function should only modify configuration layer settings."
      bison-mode
      fzf
      ;; XXX HBW - local doesn't work for some reason...
-     (vim-aurora :location "~/.emacs.d/private/local")
+     (borealis :location "~/.emacs.d/private/local")
      )
 
    ;; A list of packages that cannot be updated.
