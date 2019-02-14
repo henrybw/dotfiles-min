@@ -13,7 +13,7 @@ stty -ixon
 
 # Banner!
 if (which fortune &> /dev/null && which cowsay &> /dev/null); then
-    fortune hitchhiker | cowsay -f dragon-and-cow
+    fortune goedel | cowsay -f dragon-and-cow
 fi
 
 # https://stackoverflow.com/a/29394504
