@@ -39,7 +39,8 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
+     (helm :variables
+           helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
      better-defaults
      emacs-lisp
      lua
