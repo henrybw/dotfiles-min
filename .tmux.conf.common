@@ -67,6 +67,9 @@ bind -Tcopy-mode-vi 'y' send -X copy-selection
 # truncated as easily.
 set-window-option -g main-pane-width 115
 
+# a commonly used layout
+bind v select-layout main-vertical
+
 # mouse toggling
 bind m set -g mouse on \; display 'Mouse: ON'
 bind M set -g mouse off \; display 'Mouse: OFF'
