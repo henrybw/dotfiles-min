@@ -54,7 +54,7 @@ resetterm="\[\017\]"
 # \[ and \] prevent the shell from counting these characters
 # against the line length.
 usercolor="\[\033[35m\]"   # purple
-hostcolor="\[\033[4"$(( ( $(hostname|cksum|cut -d\  -f1|cut -d\  -f1) / 7 ) % 7))"m\033[1;3"$(( $(hostname|cksum|cut -d\  -f1|cut -d\    -f1) % 7))"m\]"   # bold-random-color on random-color
+hostcolor="\[\033[4"$(( ( $(hostname -s|cksum|cut -d\  -f1|cut -d\  -f1) / 7 ) % 7))"m\033[1;3"$(( $(hostname -s|cksum|cut -d\  -f1|cut -d\    -f1) % 7))"m\]"   # bold-random-color on random-color
 timecolor="\[\033[35m\]"   # purple
 normcolor="\[\033[0m\]"    # prompt bg
 resetcolor="\[\033[0m\]"   # terminal default
