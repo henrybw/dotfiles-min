@@ -140,7 +140,7 @@ function precmd() {
         _host_colored="%K{7}${_host_colored}%k"
     fi
 
-    PROMPT="%{${_host_colored}%} %{${fg[green]}%}[%3~]%{$reset_color%}${fg_bold[cyan]}$(branch_info)$reset_color$STATUS_EXT"$'\n'
+    PROMPT="%{${_host_colored}%} %{${fg[green]}%}[%3~]%{$reset_color%}$STATUS_EXT"$'\n'
     PROMPT="$PROMPT$_return_code%{${fg_bold[blue]}%}$%{${reset_color}%} "
     RPROMPT='$(vi_mode_prompt_info)'
     export PROMPT
