@@ -568,33 +568,17 @@ maps STATES."
   ;;; Key bindings
   ;;;
 
-  ;; C-c as general purpose escape key sequence.
+
+  ;; Map C-c to escape in evil mode
   ;; A HUGE THANK YOU TO: https://www.emacswiki.org/emacs/Evil#toc16
   (defun ctrl-c-escape (prompt)
-    "Functionality for escaping generally. Includes exiting Evil insert state
-and C-g binding."
     (cond
-     ((or (derived-mode-p 'magit-mode) (derived-mode-p 'term-mode))
-      (kbd "C-c"))
      ;; If we're in one of the Evil states that defines [escape] key, return
      ;; [escape] so as Key Lookup will use it.
      ((or (evil-insert-state-p) (evil-normal-state-p) (evil-replace-state-p)
           (evil-visual-state-p))
       [escape])
-     ;; Helm Projectile throws an error when using C-g to quit
-     (projectile-mode [escape])
-     ;; This is the best way I could infer for now to have C-c work during
-     ;; evil-read-key. Note: As long as I return [escape] in normal-state, I
-     ;; don't need this. eq overriding-terminal-local-map evil-read-key-map)
-     ;; (keyboard-quit) (kbd ""))
-     (t (kbd "C-g"))))
-  (defun ctrl-g-major-mode (prompt)
-    "Swaps the traditional emacs C-c major mode prefix key with C-g."
-    (if (or (evil-insert-state-p) (evil-normal-state-p) (evil-replace-state-p)
-            (evil-visual-state-p))
-        (kbd "C-c")
-      (kbd "C-g")))
-  (define-key key-translation-map (kbd "C-g") 'ctrl-g-major-mode)
+     (t (kbd "C-c"))))
   (define-key key-translation-map (kbd "C-c") 'ctrl-c-escape)
 
   ;; Works around the fact that Evil uses read-event directly when in operator
