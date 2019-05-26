@@ -767,6 +767,12 @@ and C-g binding."
   ;; line accidentally.
   (global-unset-key (kbd "C-j"))
 
+  ;; Since the key sequence "C-c (exit insert mode), SPC, ..." can parse as
+  ;; "C-c, C-SPC, ..." if the ctrl key isn't let go soon enough, the default
+  ;; C-SPC binding ('set-mark-command') can mess with "exit insert mode -> do
+  ;; spacemacs action" workflows. So re-bind it to the same thing SPC does.
+  (global-set-key (kbd "C-SPC") 'spacemacs-cmds)
+
   ;; Make K perform the reverse analog of J (i.e. split a line)
   (define-key evil-motion-state-map "K" (kbd "\"_s RET C-c"))
   ;; The normal map binding of 'K' will override our motion map binding unless
@@ -788,10 +794,12 @@ and C-g binding."
     ;; c-indent-new-comment-line can intelligently continue comment leader
     ;; characters (e.g. "*" in multi-line C comments), but it's not available
     ;; outside of cc mode.
-    (if (bound-and-true-p c-buffer-is-cc-mode)
-        (progn (c-indent-new-comment-line)
-               (c-indent-line))
-      (comment-indent-new-line)))
+    (cond ((bound-and-true-p c-buffer-is-cc-mode) (progn
+                                                    (c-indent-new-comment-line)
+                                                    (c-indent-line)))
+          ;; XXX haskell-mode doesn't play well with comment-indent-new-line
+          ((equal major-mode 'haskell-mode) (evil-ret))
+          (t (comment-indent-new-line))))
   (define-key evil-motion-state-map (kbd "RET") 'new-line-with-comment)
   (define-key evil-insert-state-map (kbd "RET") 'new-line-with-comment)
 
