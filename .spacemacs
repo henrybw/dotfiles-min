@@ -767,6 +767,7 @@ maps STATES."
   ;; "C-c, C-SPC, ..." if the ctrl key isn't let go soon enough, the default
   ;; C-SPC binding ('set-mark-command') can mess with "exit insert mode -> do
   ;; spacemacs action" workflows. So re-bind it to the same thing SPC does.
+  (global-unset-key (kbd "C-@"))
   (global-set-key (kbd "C-SPC") 'spacemacs-cmds)
 
   ;; Make K perform the reverse analog of J (i.e. split a line)
