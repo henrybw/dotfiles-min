@@ -19,6 +19,7 @@ Plug 'junegunn/fzf'
 " with Vimscript and are looking for the 'default' implementation of the
 " features they can find in the alternative Vim plugins.
 Plug 'junegunn/fzf.vim'
+Plug 'bakpakin/fennel.vim'
 Plug 'henrybw/vim-colors-aurora'
 Plug '$HOME/.vim/custom/cscope-maps'
 

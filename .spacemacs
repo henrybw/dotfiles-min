@@ -70,6 +70,8 @@ This function should only modify configuration layer settings."
      fzf
      ;; XXX HBW - local doesn't work for some reason...
      (borealis :location "~/.emacs.d/private/local")
+     ;; https://gitlab.com/technomancy/fennel-mode
+     (fennel-mode :location "~/.emacs.d/private/local")
      )
 
    ;; A list of packages that cannot be updated.
@@ -446,7 +448,7 @@ It should only modify the values of Spacemacs settings."
   (cond ((equal system-type 'darwin)
          (setq-default dotspacemacs-default-font '("SF Mono"
                                                    :size 12
-                                                   :weight semibold
+                                                   :weight medium
                                                    :width normal)))
         ((equal system-type 'gnu/linux)
          (setq-default dotspacemacs-default-font '("Hack"
@@ -1147,6 +1149,8 @@ function name font face."
   (add-hook 'racer-mode-hook #'eldoc-mode)
 
   (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
+
+  (require 'fennel-mode)
 
   (require 'borealis)
   (enable-theme 'borealis)
