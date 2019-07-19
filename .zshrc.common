@@ -17,8 +17,8 @@ setopt multios
 if [[ -z "$HISTFILE" ]]; then
     HISTFILE=$HOME/.zsh_history
 fi
-HISTSIZE=10000
-SAVEHIST=10000
+export HISTSIZE=10000000
+export SAVEHIST=10000000
 setopt extended_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups # ignore duplication command history list
@@ -149,12 +149,14 @@ function precmd() {
 
 # Set up completion
 fpath+=~/.zfunc
-autoload -U compinit
-compinit
+autoload -Uz compinit
 
 # Compile zcompdump if necessary
 if [ ~/.zcompdump -nt ~/.zcompdump.zwc -o ! -e ~/.zcompdump.zwc ]; then
-  zcompile ~/.zcompdump
+    compinit -d ~/.zcompdump
+    zcompile ~/.zcompdump
+else
+    compinit -C -d ~/.zcompdump
 fi
 
 #-------------------------------------------------------------------------------
@@ -214,5 +216,3 @@ alias mmv='noglob zmv -W'
 
 # Don't use Ctrl-S/Ctrl-Q for shell flow control
 setopt noflowcontrol
-stty stop undef
-stty start undef
