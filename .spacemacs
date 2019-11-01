@@ -420,7 +420,7 @@ It should only modify the values of Spacemacs settings."
    ;; %z - mnemonics of buffer, terminal, and keyboard coding systems
    ;; %Z - like %z, but including the end-of-line format
    ;; (default "%I@%S")
-   dotspacemacs-frame-title-format "%I@%S"
+   dotspacemacs-frame-title-format "emacs@%S:%a [%t]"
 
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
@@ -1144,9 +1144,8 @@ function name font face."
               (use-local-map (copy-keymap term-mode-map))
               (local-set-key (kbd "C-g") 'comint-interrupt-subjob)))
 
-  ;; https://github.com/rust-lang-nursery/fmt-rfcs/blob/master/guide/guide.md
   (add-hook 'rust-mode-hook (lambda ()
-                              (setq fill-column 100)
+                              (setq fill-column 80)
                               (setq tab-width 4)
                               (setq evil-shift-width 4)  ; FOR SRS
                               ))
