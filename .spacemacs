@@ -456,11 +456,16 @@ It should only modify the values of Spacemacs settings."
                                                    :width normal
                                                    :powerline-scale 1.0)))
         ((equal system-type 'windows-nt)
-         (setq-default dotspacemacs-default-font '("SF Mono"
+         (setq-default dotspacemacs-default-font '("Consolas"
                                                    :size 12
                                                    :weight normal
                                                    :width normal
                                                    :powerline-scale 1.0)))
+        ((equal system-type 'cygwin)
+         (setq-default dotspacemacs-default-font '("Consolas"
+                                                   :size 12
+                                                   :weight normal
+                                                   :width normal)))
         (setq-default dotspacemacs-default-font '("Source Code Pro"
                                                   :size 12
                                                   :weight normal
