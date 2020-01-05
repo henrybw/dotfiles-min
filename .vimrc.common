@@ -80,6 +80,9 @@ set nolazyredraw
 " Spacebar >>> \ as a leader key
 let mapleader="\<Space>"
 
+" Spacemacs ruined me
+nnoremap <leader>fs :w<CR>
+
 " Shortcuts for cycling buffers
 nnoremap gB :bp<CR>
 nnoremap gb :bn<CR>
