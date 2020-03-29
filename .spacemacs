@@ -473,9 +473,9 @@ It should only modify the values of Spacemacs settings."
                                                    :width normal
                                                    :powerline-scale 1.0)))
         ((equal system-type 'windows-nt)
-         (setq-default dotspacemacs-default-font '("Consolas"
+         (setq-default dotspacemacs-default-font '("DejaVu Sans Mono"
                                                    :size 12
-                                                   :weight normal
+                                                   :weight bold
                                                    :width normal
                                                    :powerline-scale 1.0)))
         ((equal system-type 'cygwin)
