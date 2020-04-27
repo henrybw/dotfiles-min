@@ -1181,6 +1181,7 @@ function name font face."
   (require 'borealis)
   (enable-theme 'borealis)
   (set-transparent-bg)
+  (setq fci-rule-color "#afafaf")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
