@@ -43,7 +43,6 @@ This function should only modify configuration layer settings."
      better-defaults
      emacs-lisp
      lua
-     rust
      c-c++
      python
      git
@@ -69,8 +68,6 @@ This function should only modify configuration layer settings."
      fzf
      ;; XXX HBW - local doesn't work for some reason...
      (borealis :location "~/.emacs.d/private/local")
-     ;; https://gitlab.com/technomancy/fennel-mode
-     (fennel-mode :location "~/.emacs.d/private/local")
      )
 
    ;; A list of packages that cannot be updated.
@@ -1175,8 +1172,6 @@ function name font face."
   (add-hook 'racer-mode-hook #'eldoc-mode)
 
   (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
-
-  (require 'fennel-mode)
 
   (require 'borealis)
   (enable-theme 'borealis)
