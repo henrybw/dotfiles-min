@@ -582,7 +582,7 @@ before packages are loaded."
   (defun evil-define-key-for-states (states keycode handler)
     "Defines a keybinding mapping KEYCODE to HANDLER only for the evil state
 maps STATES."
-    (loop for state in states
+    (cl-loop for state in states
           collect (define-key (symbol-value state) keycode handler)))
 
   (defvar evil-non-insert-states '(evil-normal-state-map
@@ -687,8 +687,8 @@ maps STATES."
            ("f" . helm-cscope-find-this-file)
            ("i" . helm-cscope-find-files-including-file)
            ("a" . helm-cscope-find-assignments-to-this-symbol))))
-    (loop for key-map in cscope-key-maps
-          collect (lexical-let* ((key (car key-map))
+    (cl-loop for key-map in cscope-key-maps
+          collect (let* ((key (car key-map))
                                  (handler (cdr key-map)))
                     (evil-ex-define-cmd (replace-regexp-in-string
                                          "helm-" "" (symbol-name handler))
