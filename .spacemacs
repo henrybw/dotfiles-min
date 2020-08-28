@@ -51,8 +51,8 @@ This function should only modify configuration layer settings."
      ;; osx
      markdown
      org
-     ;; rust
      python
+     ;; rust
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
@@ -503,7 +503,7 @@ It should only modify the values of Spacemacs settings."
                                                    :width normal)))
         ((equal system-type 'gnu/linux)
          (setq-default dotspacemacs-default-font '("DejaVu Sans Mono"
-                                                   :size 14
+                                                   :size 12
                                                    :weight normal
                                                    :width normal
                                                    :powerline-scale 1.0)))
