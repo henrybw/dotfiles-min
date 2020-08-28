@@ -50,6 +50,7 @@ This function should only modify configuration layer settings."
      lua
      ;; osx
      markdown
+     multiple-cursors
      org
      python
      ;; rust
@@ -155,8 +156,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
-   ;; (default nil)
-   dotspacemacs-verify-spacelpa-archives nil
+   ;; (default t)
+   dotspacemacs-verify-spacelpa-archives t
 
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
@@ -1210,6 +1211,11 @@ function name font face."
   (enable-theme 'borealis)
   (set-transparent-bg)
   (setq fci-rule-color "#afafaf")
+
+  ;; stolen from keybindings.el from spacemacs
+  (let ((dotfile-setting (cons dotspacemacs-active-transparency
+                               dotspacemacs-inactive-transparency)))
+    (spacemacs/enable-transparency (selected-frame) dotfile-setting))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
