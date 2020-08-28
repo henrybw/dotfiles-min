@@ -44,8 +44,11 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      helm
+     ;; (helm :variables
+     ;;       helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
      ;; lsp
      lua
+     ;; osx
      markdown
      org
      ;; rust
