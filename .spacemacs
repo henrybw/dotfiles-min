@@ -50,7 +50,6 @@ This function should only modify configuration layer settings."
      lua
      ;; osx
      markdown
-     multiple-cursors
      org
      python
      ;; rust
