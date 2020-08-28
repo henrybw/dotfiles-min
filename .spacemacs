@@ -69,6 +69,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages
    '(
+     fill-column-indicator
      fzf
      ;; racer
      ;; XXX HBW - local doesn't work for some reason...
@@ -659,7 +660,7 @@ maps STATES."
   (setq-default evil-want-Y-yank-to-eol t)
 
   ;; Muscle memory from my vimrc leader keybindings
-  (evil-leader/set-key (kbd "\\") 'spacemacs/toggle-fill-column-indicator)
+  (evil-leader/set-key (kbd "\\") 'display-fill-column-indicator-mode)
   (evil-leader/set-key (kbd "RET") 'delete-trailing-whitespace)
 
   ;; SPC-` is already defined to something, which overrides our binding
