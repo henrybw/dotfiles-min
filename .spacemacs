@@ -40,6 +40,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      better-defaults
      c-c++
+     cmake
      cscope
      emacs-lisp
      git
@@ -1202,7 +1203,11 @@ function name font face."
                               (setq evil-shift-width 4)  ; FOR SRS
                               ))
   (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
+
+  (add-hook 'cmake-mode-hook
+            (lambda ()
+              (setq tab-width 4)  ; FOR SRS
+              (setq cmake-tab-width 4)))
 
   (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
 
