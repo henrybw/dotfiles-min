@@ -661,6 +661,9 @@ maps STATES."
   (setq-default evil-want-Y-yank-to-eol t)
 
   ;; Muscle memory from my vimrc leader keybindings
+  ;; XXX if one of the following fill-column-indicator functions fails, try a
+  ;; different one: at least one of them usually works.
+  ;; (evil-leader/set-key (kbd "\\") 'spacemacs/toggle-fill-column-indicator)
   (evil-leader/set-key (kbd "\\") 'display-fill-column-indicator-mode)
   (evil-leader/set-key (kbd "RET") 'delete-trailing-whitespace)
 
