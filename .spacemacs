@@ -1015,6 +1015,9 @@ remove the comment characters from that line."
   ;; Hide menu bar
   (menu-bar-mode -1)
 
+  ;; Change the modeline to be more vim-like
+  (powerline-vim-theme)
+
   ;; Always display column number
   (setq-default column-number-mode t)
 
