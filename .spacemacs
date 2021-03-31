@@ -1215,12 +1215,12 @@ function name font face."
               (setq tab-width 4)  ; FOR SRS
               (setq cmake-tab-width 4)))
 
-  (add-to-list 'auto-mode-alist '("\\.m\\'" . objc-mode))
+  (add-to-list 'auto-mode-alist '("\\.m" . objc-mode))
 
   (require 'borealis)
   (enable-theme 'borealis)
   (set-transparent-bg)
-  (setq fci-rule-color "#afafaf")
+  (setq fci-rule-color "#afaf87")
 
   ;; stolen from keybindings.el from spacemacs
   (let ((dotfile-setting (cons dotspacemacs-active-transparency
