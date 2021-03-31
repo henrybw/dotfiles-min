@@ -1215,7 +1215,7 @@ function name font face."
               (setq tab-width 4)  ; FOR SRS
               (setq cmake-tab-width 4)))
 
-  (add-to-list 'auto-mode-alist '("\\.m" . objc-mode))
+  (add-to-list 'auto-mode-alist '("\\(\\.m\\'\\)" . objc-mode))
 
   (require 'borealis)
   (enable-theme 'borealis)
