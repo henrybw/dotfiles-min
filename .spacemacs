@@ -631,7 +631,8 @@ maps STATES."
 
   ;;; Key bindings
 
-  ;; C-c as general purpose escape key sequence.
+  ;; C-c as general purpose escape key sequence. C-S-c still functions as a
+  ;; prefix key like default C-c.
   ;; A HUGE THANK YOU TO: https://www.emacswiki.org/emacs/Evil#toc16
   (defun ctrl-c-escape (prompt)
     ;; Functionality for escaping generally.  Includes exiting Evil insert state
