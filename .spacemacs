@@ -562,9 +562,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  ;;;
   ;;; Utilities
-  ;;;
 
   (evil-define-command evil-window-split-with-focus (&optional count file)
     "Splits the window horizontally and keeps focus."
@@ -585,7 +583,7 @@ before packages are loaded."
     "Defines a keybinding mapping KEYCODE to HANDLER only for the evil state
 maps STATES."
     (cl-loop for state in states
-          collect (define-key (symbol-value state) keycode handler)))
+             collect (define-key (symbol-value state) keycode handler)))
 
   (defvar evil-non-insert-states '(evil-normal-state-map
                                    evil-visual-state-map
@@ -631,9 +629,7 @@ maps STATES."
                                   ;; check-large-file function as usual.
                                   t))))
 
-  ;;;
   ;;; Key bindings
-  ;;;
 
   ;; C-c as general purpose escape key sequence.
   ;; A HUGE THANK YOU TO: https://www.emacswiki.org/emacs/Evil#toc16
@@ -693,45 +689,45 @@ maps STATES."
            ("i" . helm-cscope-find-files-including-file)
            ("a" . helm-cscope-find-assignments-to-this-symbol))))
     (cl-loop for key-map in cscope-key-maps
-          collect (let* ((key (car key-map))
-                                 (handler (cdr key-map)))
-                    (evil-ex-define-cmd (replace-regexp-in-string
-                                         "helm-" "" (symbol-name handler))
-                                        handler)
-                    ;; To do the first type of search, hit 'CTRL-\', followed
-                    ;; by one of the cscope search types above. The result of
-                    ;; your cscope search will be displayed in the current
-                    ;; window.  You can use CTRL-T to go back to where you
-                    ;; were before the search.
-                    (define-key evil-normal-state-map
-                      (kbd (concat "C-\\ " key))
-                      (defalias (intern (replace-regexp-in-string
-                                         "helm-cscope-"
-                                         "cs-"
-                                         (symbol-name handler)))
-                        (lambda () (interactive)
-                          (funcall handler (thing-at-point 'symbol)))))
-                    ;; Using 'CTRL-\ spacebar' then a search type makes the
-                    ;; window split horizontally, with search result displayed
-                    ;; in the new window.
-                    (define-key evil-normal-state-map
-                      (kbd (concat "C-\\ SPC " key))
-                      (defalias (intern (replace-regexp-in-string
-                                         "helm-cscope-"
-                                         "cs-sp-"
-                                         (symbol-name handler)))
-                        (lambda () (interactive) (evil-window-split-with-focus)
-                          (funcall handler (thing-at-point 'symbol)))))
-                    ;; Hitting 'CTRL-\';; then space *twice* before the search
-                    ;; type does a vertical split instead of a horizontal one.
-                    (define-key evil-normal-state-map
-                      (kbd (concat "C-\\ SPC SPC " key))
-                      (defalias (intern (replace-regexp-in-string
-                                         "helm-cscope-"
-                                         "cs-vsp-"
-                                         (symbol-name handler)))
-                        (lambda () (interactive) (evil-window-vsplit-with-focus)
-                          (funcall handler (thing-at-point 'symbol))))))))
+             collect (let* ((key (car key-map))
+                            (handler (cdr key-map)))
+                       (evil-ex-define-cmd (replace-regexp-in-string
+                                            "helm-" "" (symbol-name handler))
+                                           handler)
+                       ;; To do the first type of search, hit 'CTRL-\', followed
+                       ;; by one of the cscope search types above. The result of
+                       ;; your cscope search will be displayed in the current
+                       ;; window.  You can use CTRL-T to go back to where you
+                       ;; were before the search.
+                       (define-key evil-normal-state-map
+                         (kbd (concat "C-\\ " key))
+                         (defalias (intern (replace-regexp-in-string
+                                            "helm-cscope-"
+                                            "cs-"
+                                            (symbol-name handler)))
+                           (lambda () (interactive)
+                             (funcall handler (thing-at-point 'symbol)))))
+                       ;; Using 'CTRL-\ spacebar' then a search type makes the
+                       ;; window split horizontally, with search result displayed
+                       ;; in the new window.
+                       (define-key evil-normal-state-map
+                         (kbd (concat "C-\\ SPC " key))
+                         (defalias (intern (replace-regexp-in-string
+                                            "helm-cscope-"
+                                            "cs-sp-"
+                                            (symbol-name handler)))
+                           (lambda () (interactive) (evil-window-split-with-focus)
+                             (funcall handler (thing-at-point 'symbol)))))
+                       ;; Hitting 'CTRL-\';; then space *twice* before the search
+                       ;; type does a vertical split instead of a horizontal one.
+                       (define-key evil-normal-state-map
+                         (kbd (concat "C-\\ SPC SPC " key))
+                         (defalias (intern (replace-regexp-in-string
+                                            "helm-cscope-"
+                                            "cs-vsp-"
+                                            (symbol-name handler)))
+                           (lambda () (interactive) (evil-window-vsplit-with-focus)
+                             (funcall handler (thing-at-point 'symbol))))))))
 
   ;; Versions of cc and o that don't exit normal mode
   (evil-leader/set-key "cc"
@@ -981,14 +977,12 @@ remove the comment characters from that line."
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
 
   (when (equal system-type 'darwin)
-   ;; Some native system hotkeys get intercepted by emacs for some reason
-   (global-set-key (kbd "H-h") 'ns-do-hide-emacs)
-   (global-set-key (kbd "H-M-h") 'ns-do-hide-others)
-   (global-set-key (kbd "H-m") 'iconify-frame))
+    ;; Some native system hotkeys get intercepted by emacs for some reason
+    (global-set-key (kbd "H-h") 'ns-do-hide-emacs)
+    (global-set-key (kbd "H-M-h") 'ns-do-hide-others)
+    (global-set-key (kbd "H-m") 'iconify-frame))
 
-  ;;;
   ;;; Theming
-  ;;;
 
   ;; I usually use vertical splits to follow tags / call chains, so I want them
   ;; to progress left-to-right. However, I tend to use horizontal splits to
@@ -1056,9 +1050,7 @@ remove the comment characters from that line."
   (global-linum-mode -1)
   (auto-fill-mode)
 
-  ;;;
   ;;; Formatting
-  ;;;
 
   (setq-default git-commit-summary-max-length 75)
   (setq-default git-commit-fill-column 75)
@@ -1104,7 +1096,8 @@ neither, we use the current indent-tabs-mode."
         (goto-char (point-min))
         (let ((depth 0) str start start-depth)
           ;; Search #if/#else/#endif using regular expression.
-          (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
+          (while (re-search-forward
+                  "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
             (setq str (match-string 1))
             ;; Handle #if.
             (if (string= str "if")
@@ -1114,9 +1107,11 @@ neither, we use the current indent-tabs-mode."
                   (when (and (null start) (looking-at "\\s-+0"))
                     (setq start (match-end 0)
                           start-depth depth)))
-              ;; Handle #else, here we can decorate #if 0->#else block using 'font-lock-comment-face'.
+              ;; Handle #else, here we can decorate #if 0->#else block using
+              ;; 'font-lock-comment-face'.
               (when (and start (= depth start-depth))
-                (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
+                (c-put-font-lock-face start (match-beginning 0)
+                                      'font-lock-comment-face)
                 (setq start nil))
               ;; Handle #endif, return to upper block if possible.
               (when (string= str "endif")
@@ -1140,7 +1135,8 @@ function name font face."
                    (face (or (get-char-property start 'read-face-name)
                              (get-char-property start 'face))))
               (when (or (null face)
-                        ;; Macro block constructs get incorrectly tagged as variable names
+                        ;; Macro block constructs get incorrectly tagged as
+                        ;; variable names
                         (eq face font-lock-variable-name-face))
                 (c-put-font-lock-face start end 'font-lock-function-name-face)
                 (setq retval t))))))
@@ -1158,15 +1154,18 @@ function name font face."
     ;; Line up each line in a paren list with the position of the opening paren
     (c-set-offset 'arglist-close 'c-lineup-arglist)
     (c-set-offset 'innamespace 0)
-    (c-set-offset 'access-label '-)   ; C++ access modifiers indented at same
-                                      ; level as class
-    (c-set-offset 'label (vector 0))  ; goto labels are always unindented
-    (c-set-offset 'inextern-lang 0)   ; extern "C" is unindented
+    ;; C++ access modifiers indented at same level as class
+    (c-set-offset 'access-label '-)
+    ;; goto labels are always unindented
+    (c-set-offset 'label (vector 0))
+    ;; extern "C" is unindented
+    (c-set-offset 'inextern-lang 0)
     ;; Force preprocessor macros to be aligned to the first column
     (setq c-electric-pound-behavior '(alignleft))
     ;; Make C block comments continue with stars on each line
     (setq c-block-comment-prefix "* ")
-    ;; When automatically commenting out regions, use C++ style one-line comments
+    ;; When automatically commenting out regions, use C++ style one-line
+    ;; comments
     (setq comment-start "//" comment-end "")
 
     ;; Use spaces for indentation, unless the file says otherwise
@@ -1177,15 +1176,16 @@ function name font face."
     (evil-leader/set-key (kbd "`" ) 'spacemacs/alternate-buffer)
 
     ;; Highlight function calls and #if 0 blocks
-    (font-lock-add-keywords nil
-                            '(;; XXX HBW - this doesn't work reliably, and can get dropped in
-                              ;; certain cases (like when undoing an edit inside a function name).
-                              (c-mode-highlight-function-calls . font-lock-function-name-face)
-                              ;; Sometimes operations like undo will confuse font-lock and the
-                              ;; custom function name highlighting logic specified above.
-                              ("\\(\\w+\\)\\s-*\(" (1 font-lock-function-name-face append))
-                              (my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend)))
-                            'add-to-end)
+    (font-lock-add-keywords
+     nil
+     '(;; XXX HBW - this doesn't work reliably, and can get dropped in
+       ;; certain cases (like when undoing an edit inside a function name).
+       (c-mode-highlight-function-calls . font-lock-function-name-face)
+       ;; Sometimes operations like undo will confuse font-lock and the
+       ;; custom function name highlighting logic specified above.
+       ("\\(\\w+\\)\\s-*\(" (1 font-lock-function-name-face append))
+       (my-c-mode-font-lock-if0 (0 font-lock-comment-face prepend)))
+     'add-to-end)
     )
 
   (add-hook 'c-mode-common-hook 'c-mode-common-settings)
