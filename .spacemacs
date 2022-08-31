@@ -1218,6 +1218,9 @@ function name font face."
               (setq cmake-tab-width 4)))
 
   (add-to-list 'auto-mode-alist '("\\(\\.m\\'\\)" . objc-mode))
+  (add-to-list 'auto-mode-alist '("\\(\\.mm\\'\\)" . c++-mode))
+
+  (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 
   (require 'borealis)
   (enable-theme 'borealis)
