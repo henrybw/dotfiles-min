@@ -1104,7 +1104,6 @@ remove the comment characters from that line."
   (setq-default helm-buffers-fuzzy-matching t)
   (setq-default helm-etags-fuzzy-match t)
 
-  (global-linum-mode -1)
   (auto-fill-mode)
 
   ;;; Formatting
