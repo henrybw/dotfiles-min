@@ -96,6 +96,9 @@ nnoremap <leader>` :b#<CR>
 " doesn't allow you to exit with Ctrl-C, for example).
 inoremap <C-c> <Esc>
 
+" Open tag in a vertical split (Ctrl-W ] opens in horizontal split).
+nnoremap <C-w>\ <C-w>v<C-]>
+
 " Vertical split version of Ctrl-W F (because I never use vim tabs anyway)
 map <C-w>gf :vertical wincmd f<CR>
 
