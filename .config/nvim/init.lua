@@ -1,34 +1,30 @@
+-- vim: ts=2 sw=2
+
+vim.cmd([[
 "
 " Plugin config
 "
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin()
 
 Plug 'vim-scripts/closetag.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tmhedberg/matchit'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'vim-scripts/bufkill.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'henrybw/vim-colors-aurora'
-Plug '$HOME/.config/nvim/custom/cscope-maps'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
-
-" For the CtrlP plugin
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg)$',
-  \ 'file': '\v\.(pyc|so|swp|o)$',
-  \ }
-let g:ctrlp_user_command = [
-  \ '.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'
-  \ ]
 
 " Load custom mappings for bufkill
 let g:BufKillCreateMappings = 1
@@ -68,6 +64,10 @@ set nosplitbelow
 " Make diff windows open as vertical splits by default
 set diffopt=filler,vertical
 
+" Some special magic to get full 256 colors working in terminals
+set t_ut=
+set t_Co=256
+
 " This seems to have a net effect of batching screen updates, resulting in very
 " large redraw events occuring when, for example, switching tmux windows. Over a
 " network connection, this can make rendering large vim windows very laggy. With
@@ -81,6 +81,10 @@ set nolazyredraw
 " Spacebar >>> \ as a leader key
 let mapleader="\<Space>"
 
+" Spacemacs ruined me
+nnoremap <leader>fs :w<CR>
+nnoremap <leader>fed :e $MYVIMRC<CR>
+
 " Shortcuts for cycling buffers
 nnoremap gB :bp<CR>
 nnoremap gb :bn<CR>
@@ -91,12 +95,6 @@ nnoremap <leader>` :b#<CR>
 " Allows Ctrl-C to be always used in place of Esc (normally, Visual Mode
 " doesn't allow you to exit with Ctrl-C, for example).
 inoremap <C-c> <Esc>
-
-" Open tag in a vertical split (Ctrl-W ] opens in horizontal split).
-" NOTE: The visual mode version of this clobbers the 'u' register, chosen
-" because using 'u' in conjunction with y and " seems inconvenient.
-nnoremap <C-w>\ :exec("vert stag " . expand("<cword>"))<CR>
-vnoremap <C-w>\ "uy :exec("vert stag " . getreg('u'))<CR>
 
 " Vertical split version of Ctrl-W F (because I never use vim tabs anyway)
 map <C-w>gf :vertical wincmd f<CR>
@@ -137,11 +135,6 @@ nnoremap K i<CR><ESC>
 nmap <leader>cc cc<ESC>
 nmap <leader>o o<ESC>
 nmap <leader>O O<ESC>
-
-" Toggle autocomment mode, for those times when I don't want enter to continue a
-" comment.
-nmap <leader>s <ESC>:set formatoptions+=r formatoptions?<CR>
-nmap <leader>d <ESC>:set formatoptions-=r formatoptions?<CR>
 
 " For quicker quickfixing
 nmap <leader>n <ESC>:cn<CR>
@@ -196,6 +189,11 @@ nnoremap Q <ESC>
 
 set mouse=a
 
+" Fix weird 223-char terminal limit to be unlimited
+if has('mouse_sgr')
+    set ttymouse=sgr
+endif
+
 " Disable SQL omnicompletion because it makes Esc super slow
 let g:omni_sql_no_default_maps = 1
 let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
@@ -205,6 +203,26 @@ cmap w!! w !sudo tee > /dev/null %
 
 nmap <leader><CR> :FixWhitespace<CR>
 
+" Telescope
+nnoremap <C-p> :Telescope find_files<CR>
+nnoremap <Leader>/ :Telescope live_grep<CR>
+nnoremap <Leader>s :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <Leader>b :Telescope buffers<CR>
+nnoremap <Leader>gmll :Telescope git_commits<CR>
+nnoremap <Leader>gmlb :Telescope git_branches<CR>
+nnoremap <Leader>gs :Telescope git_status<CR>
+nnoremap <Leader>gz :Telescope git_stash<CR>
+nnoremap <Leader>o :Telescope vim_options<CR>
+
+" Rough port of cscope-maps to Telescope's LSP pickers
+nnoremap <C-\>s :Telescope lsp_references<CR>
+nnoremap <C-\>c :Telescope lsp_incoming_calls<CR>
+nnoremap <C-\>d :Telescope lsp_outgoing_calls<CR>
+nnoremap <C-\>g :Telescope lsp_definitions<CR>
+" ...plus some features that cscope doesn't have
+nnoremap <C-\>i :Telescope lsp_implementations<CR>
+nnoremap <C-\>t :Telescope lsp_type_definitions<CR>
+
 "
 " Formatting
 "
@@ -213,11 +231,7 @@ nmap <leader><CR> :FixWhitespace<CR>
 " to set this to trigger on buffer load events instead.
 augroup cformatopt
     autocmd!
-    if v:version < 703
-        autocmd BufNewFile,BufRead * setlocal formatoptions=cql
-    else
-        autocmd BufNewFile,BufRead * setlocal formatoptions=crjql
-    endif
+    autocmd BufNewFile,BufRead * setlocal formatoptions=crjql
     autocmd BufRead,BufNewFile *.h set filetype=c
 augroup END
 
@@ -277,11 +291,22 @@ augroup filetype
 augroup END
 
 "
+" Paste settings
+"
+
+" Use + register whenever possible
+if has('unnamedplus')
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
+
+"
 " Miscellaneous settings
 "
 
+set nocompatible
 set history=100
-set printoptions=syntax:y,wrap:y
 
 " Don't keep around backups or swap files
 set writebackup
@@ -299,3 +324,42 @@ set smartcase
 
 set hidden  " Keep around modified buffers without having to save them
 set confirm  " Ask instead of autofailing when doing a destructive action
+]])
+
+require('lspconfig').gopls.setup {
+  cmd = { 'gopls' },
+}
+
+-- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+    -- machine and codebase, you may want longer. Add an additional
+    -- argument after params if you find that you have to write the file
+    -- twice for changes to be saved.
+    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-8"
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+    vim.lsp.buf.format({async = false})
+  end
+})
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { "go" },
+  sync_install = false,
+  auto_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
