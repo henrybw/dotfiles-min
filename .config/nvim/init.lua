@@ -24,6 +24,11 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
+Plug 'sindrets/diffview.nvim'
+Plug 'NeogitOrg/neogit'
+
+Plug 'FabijanZulj/blame.nvim'
+
 call plug#end()
 
 " Load custom mappings for bufkill
@@ -207,10 +212,6 @@ nnoremap <C-p> :Telescope find_files<CR>
 nnoremap <Leader>/ :Telescope live_grep<CR>
 nnoremap <Leader>s :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
-nnoremap <Leader>gmll :Telescope git_commits<CR>
-nnoremap <Leader>gmlb :Telescope git_branches<CR>
-nnoremap <Leader>gs :Telescope git_status<CR>
-nnoremap <Leader>gz :Telescope git_stash<CR>
 nnoremap <Leader>o :Telescope vim_options<CR>
 
 " Rough port of cscope-maps to Telescope's LSP pickers
@@ -221,6 +222,15 @@ nnoremap <C-\>g :Telescope lsp_definitions<CR>
 " ...plus some features that cscope doesn't have
 nnoremap <C-\>i :Telescope lsp_implementations<CR>
 nnoremap <C-\>t :Telescope lsp_type_definitions<CR>
+
+" Neogit
+nnoremap <Leader>gs :Neogit kind=auto<CR>
+nnoremap <Leader>gl :Neogit log kind=auto<CR>
+nnoremap <Leader>gz :Neogit stash kind=auto<CR>
+nnoremap <Leader>gb :Neogit branch kind=auto<CR>
+
+" blame.nvim
+nnoremap <Leader>gb :BlameToggle<CR>
 
 "
 " Formatting
@@ -362,3 +372,6 @@ require('nvim-treesitter.configs').setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+require('neogit').setup {}
+require('blame').setup {}
