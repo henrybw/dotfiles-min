@@ -1,4 +1,4 @@
-A lightweight fork of my [dotfiles](https://bitbucket.org/hbw/dotfiles) repo.
+A lightweight fork of my [dotfiles](https://github.com/henrybw/dotfiles) repo.
 
 This is a "minimal" subset of my general-purpose dotfiles, intended for use in
 more resource-constrained environments, e.g. a shell account on a remote server
