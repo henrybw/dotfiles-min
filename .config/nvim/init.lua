@@ -130,10 +130,6 @@ map zv :call g:ScrollToPercent(75)<CR>
 " Map Y do be analog of D
 map Y y$
 
-" I never use K to lookup 'keyword' help, so have it perform the reverse of J,
-" i.e. split lines.
-nnoremap K i<CR><ESC>
-
 " Versions of cc and o that don't exit normal mode
 nmap <leader>cc cc<ESC>
 nmap <leader>o o<ESC>
