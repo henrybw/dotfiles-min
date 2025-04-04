@@ -14,7 +14,7 @@ Plug 'vim-scripts/bufkill.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-syntax-extra'
-Plug 'bronson/vim-trailing-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'henrybw/vim-colors-aurora'
 
 Plug 'neovim/nvim-lspconfig'
@@ -205,8 +205,6 @@ let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
 
-nmap <leader><CR> :FixWhitespace<CR>
-
 " Telescope
 nnoremap <C-p> :Telescope find_files<CR>
 nnoremap <Leader>/ :Telescope live_grep<CR>
@@ -231,6 +229,10 @@ nnoremap <Leader>gb :Neogit branch kind=auto<CR>
 
 " blame.nvim
 nnoremap <Leader>gb :BlameToggle<CR>
+
+" vim-better-whitespace
+nnoremap <Leader><CR> :StripWhitespace<CR>
+nnoremap <Leader>t :ToggleWhitespace<CR>
 
 "
 " Formatting
@@ -335,9 +337,18 @@ set hidden  " Keep around modified buffers without having to save them
 set confirm  " Ask instead of autofailing when doing a destructive action
 ]])
 
-require('lspconfig').gopls.setup {
-  cmd = { 'gopls' },
-}
+local lspconfig = require('lspconfig')
+lspconfig.clangd.setup {}
+lspconfig.gopls.setup { cmd = { 'gopls' } }
+lspconfig.sourcekit.setup {}
+
+-- clangd can spew a lot of irrelevant errors and warnings via LSP
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.c", "*.cpp", "*.cc", "*.h", "*.hpp", "*.hh"},
+  callback = function()
+    vim.diagnostic.disable()
+  end,
+})
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -364,7 +375,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "go" },
+  ensure_installed = { "c", "cpp", "go", "swift" },
   sync_install = false,
   auto_install = false,
   highlight = {
