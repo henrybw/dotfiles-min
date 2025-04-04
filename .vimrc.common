@@ -12,6 +12,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'cespare/vim-toml'
 Plug 'junegunn/fzf'
 " XXX fzf in itself is not a Vim plugin, and the official repository only
 " provides the basic wrapper function for Vim and it's up to the users to write
@@ -19,9 +20,12 @@ Plug 'junegunn/fzf'
 " with Vimscript and are looking for the 'default' implementation of the
 " features they can find in the alternative Vim plugins.
 Plug 'junegunn/fzf.vim'
-Plug 'bakpakin/fennel.vim'
 Plug 'henrybw/vim-colors-aurora'
+Plug 'jaawerth/fennel.vim'
+Plug 'ziglang/zig.vim'
+Plug 'habamax/vim-godot'
 Plug '$HOME/.vim/custom/cscope-maps'
+Plug '$HOME/.vim/custom/macvim'
 
 call plug#end()
 
