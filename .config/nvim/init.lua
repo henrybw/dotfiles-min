@@ -132,7 +132,7 @@ endfun
 map zr :call g:ScrollToPercent(25)<CR>
 map zv :call g:ScrollToPercent(75)<CR>
 
-" Map Y do be analog of D
+" Make Y behave like D would
 map Y y$
 
 " Versions of cc and o that don't exit normal mode
@@ -283,9 +283,7 @@ if exists('+breakindent')
 endif
 
 " Normally I don't want line wrapping, so disable it for everything but plain
-" text and files with no file type (which are probably also plain text). Of
-" course, since vimscript is a pile of shit, we have to do this with a custom
-" function instead of embedding a conditional in the autocmd...
+" text and files with no file type (which are probably also plain text).
 fun! g:SetFiletypeConditionalConfig()
     if empty(&filetype) || &filetype == "text"
         set wrap
