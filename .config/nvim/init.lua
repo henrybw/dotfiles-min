@@ -342,11 +342,11 @@ lspconfig.clangd.setup {}
 lspconfig.gopls.setup { cmd = { 'gopls' } }
 lspconfig.sourcekit.setup {}
 
--- clangd can spew a lot of irrelevant errors and warnings via LSP
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {"*.c", "*.cpp", "*.cc", "*.h", "*.hpp", "*.hh"},
   callback = function()
-    vim.diagnostic.disable()
+    -- clangd can spew a lot of irrelevant errors and warnings via LSP
+    vim.diagnostic.enable(false)
   end,
 })
 
