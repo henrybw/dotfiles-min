@@ -989,6 +989,9 @@ remove the comment characters from that line."
     (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region))
   (add-hook 'evil-surround-mode-hook 'restore-vim-surround)
 
+  (evil-define-key nil evil-motion-state-map "gt" 'tab-next)
+  (evil-define-key nil evil-motion-state-map "gT" 'tab-previous)
+
   ;; For some reason this doesn't work quite correctly out of the box
   (define-key evil-motion-state-map (kbd "C-i") 'evil-jump-forward)
 
@@ -1034,7 +1037,8 @@ remove the comment characters from that line."
     ;; Some native system hotkeys get intercepted by emacs for some reason
     (global-set-key (kbd "H-h") 'ns-do-hide-emacs)
     (global-set-key (kbd "H-M-h") 'ns-do-hide-others)
-    (global-set-key (kbd "H-m") 'iconify-frame))
+    (global-set-key (kbd "H-m") 'iconify-frame)
+    (global-set-key (kbd "H-t") 'tab-new))
 
 ;;; Theming
 
