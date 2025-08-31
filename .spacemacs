@@ -33,33 +33,40 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
-     ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      better-defaults
      c-c++
+     ;; common-lisp
+     ;; csharp
      cmake
      cscope
      emacs-lisp
      git
+     ;; go
+     ;; haskell
      helm
      ;; (helm :variables
      ;;       helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
+     ;; helpful
+     ;; javascript
      ;; lsp
      lua
      ;; osx
      markdown
      org
      python
+     ;; sql
+     ;; swift
+     ;; ruby
      ;; rust
+     ;; racket
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
             shell-default-position 'bottom)
      treemacs
      ;; windows-scripts
+     ;; yaml
+     ;; zig ;; :variables zls-backend 'lsp
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -70,8 +77,10 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages
    '(
+     ;; bison-mode
      fill-column-indicator
      fzf
+     ;; sqlite3
      ;; XXX HBW - local doesn't work for some reason...
      (borealis :location "~/.emacs.d/private/local")
      )
@@ -513,7 +522,7 @@ It should only modify the values of Spacemacs settings."
    ;; Color highlight trailing whitespace in all prog-mode and text-mode derived
    ;; modes such as c++-mode, python-mode, emacs-lisp, html-mode, rst-mode etc.
    ;; (default t)
-   dotspacemacs-show-trailing-whitespace t 
+   dotspacemacs-show-trailing-whitespace t
 
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
@@ -578,8 +587,7 @@ It should only modify the values of Spacemacs settings."
         (setq-default dotspacemacs-default-font '("Source Code Pro"
                                                   :size 12
                                                   :weight normal
-                                                  :width normal)))
-   )
+                                                  :width normal))))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -601,8 +609,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; Yes, I set environment variables in my .zshrc. It's not good practice, but
   ;; you don't need to keep reminding me about that, emacs...
-  (setq-default exec-path-from-shell-check-startup-files nil)
-  )
+  (setq-default exec-path-from-shell-check-startup-files nil))
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
@@ -618,7 +625,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  ;;; Utilities
+;;; Utilities
 
   (evil-define-command evil-window-split-with-focus (&optional count file)
     "Splits the window horizontally and keeps focus."
@@ -685,7 +692,7 @@ maps STATES."
                                   ;; check-large-file function as usual.
                                   t))))
 
-  ;;; Key bindings
+;;; Key bindings
 
   ;; C-c as general purpose escape key sequence. C-S-c still functions as a
   ;; prefix key like default C-c.
@@ -757,34 +764,34 @@ maps STATES."
                        ;; window.  You can use CTRL-T to go back to where you
                        ;; were before the search.
                        (define-key evil-normal-state-map
-                         (kbd (concat "C-\\ " key))
-                         (defalias (intern (replace-regexp-in-string
-                                            "helm-cscope-"
-                                            "cs-"
-                                            (symbol-name handler)))
-                           (lambda () (interactive)
-                             (funcall handler (thing-at-point 'symbol)))))
+                                   (kbd (concat "C-\\ " key))
+                                   (defalias (intern (replace-regexp-in-string
+                                                      "helm-cscope-"
+                                                      "cs-"
+                                                      (symbol-name handler)))
+                                     (lambda () (interactive)
+                                       (funcall handler (thing-at-point 'symbol)))))
                        ;; Using 'CTRL-\ spacebar' then a search type makes the
                        ;; window split horizontally, with search result displayed
                        ;; in the new window.
                        (define-key evil-normal-state-map
-                         (kbd (concat "C-\\ SPC " key))
-                         (defalias (intern (replace-regexp-in-string
-                                            "helm-cscope-"
-                                            "cs-sp-"
-                                            (symbol-name handler)))
-                           (lambda () (interactive) (evil-window-split-with-focus)
-                             (funcall handler (thing-at-point 'symbol)))))
+                                   (kbd (concat "C-\\ SPC " key))
+                                   (defalias (intern (replace-regexp-in-string
+                                                      "helm-cscope-"
+                                                      "cs-sp-"
+                                                      (symbol-name handler)))
+                                     (lambda () (interactive) (evil-window-split-with-focus)
+                                       (funcall handler (thing-at-point 'symbol)))))
                        ;; Hitting 'CTRL-\';; then space *twice* before the search
                        ;; type does a vertical split instead of a horizontal one.
                        (define-key evil-normal-state-map
-                         (kbd (concat "C-\\ SPC SPC " key))
-                         (defalias (intern (replace-regexp-in-string
-                                            "helm-cscope-"
-                                            "cs-vsp-"
-                                            (symbol-name handler)))
-                           (lambda () (interactive) (evil-window-vsplit-with-focus)
-                             (funcall handler (thing-at-point 'symbol))))))))
+                                   (kbd (concat "C-\\ SPC SPC " key))
+                                   (defalias (intern (replace-regexp-in-string
+                                                      "helm-cscope-"
+                                                      "cs-vsp-"
+                                                      (symbol-name handler)))
+                                     (lambda () (interactive) (evil-window-vsplit-with-focus)
+                                       (funcall handler (thing-at-point 'symbol))))))))
 
   ;; Versions of cc and o that don't exit normal mode
   (evil-leader/set-key "cc"
@@ -801,11 +808,11 @@ maps STATES."
   ;; current piece of code I'm looking at in either top or bottom 'quadrant' of
   ;; the screen. Hence, the scrolling to 25% and 75% commands.
   (define-key evil-motion-state-map "zv"
-    (defalias 'evil-scroll-line-to-25-pct
-      (lambda () (interactive) (recenter (- (round (* (window-body-height) 0.25)))))))
+              (defalias 'evil-scroll-line-to-25-pct
+                (lambda () (interactive) (recenter (- (round (* (window-body-height) 0.25)))))))
   (define-key evil-motion-state-map "zr"
-    (defalias 'evil-scroll-line-to-75-pct
-      (lambda () (interactive) (recenter (- (round (* (window-body-height) 0.75)))))))
+              (defalias 'evil-scroll-line-to-75-pct
+                (lambda () (interactive) (recenter (- (round (* (window-body-height) 0.75)))))))
   ;; The normal map binding of 'zr' will override our motion map binding unless
   ;; we undefine it.
   (define-key evil-normal-state-map "zr" nil)
@@ -817,22 +824,22 @@ maps STATES."
 
   ;; Make tag jumping be intelligent for other language modes
   (define-key evil-normal-state-map (kbd "C-]")
-    (defalias 'evil-smart-jump-to-tag
-      (lambda ()
-        (interactive)
-        (tag-jump))))
+              (defalias 'evil-smart-jump-to-tag
+                (lambda ()
+                  (interactive)
+                  (tag-jump))))
 
   ;; Open tags in splits
   (define-key evil-window-map (kbd "]")
-    (defalias 'evil-split-jump-to-tag
-      (lambda () (interactive)
-        (evil-window-split-with-focus)
-        (tag-jump))))
+              (defalias 'evil-split-jump-to-tag
+                (lambda () (interactive)
+                  (evil-window-split-with-focus)
+                  (tag-jump))))
   (define-key evil-window-map (kbd "\\")
-    (defalias 'evil-vsplit-jump-to-tag
-      (lambda () (interactive)
-        (evil-window-vsplit-with-focus)
-        (tag-jump))))
+              (defalias 'evil-vsplit-jump-to-tag
+                (lambda () (interactive)
+                  (evil-window-vsplit-with-focus)
+                  (tag-jump))))
 
   ;; Support for tag completion in the ex command line. Implementation adapted
   ;; from tags-complete-tags-table-file.
@@ -886,18 +893,8 @@ maps STATES."
   (global-unset-key (kbd "C-@"))
   (global-set-key (kbd "C-SPC") 'spacemacs-cmds)
 
-  ;; Make K perform the reverse analog of J (i.e. split a line)
-  (define-key evil-motion-state-map "K" (kbd "\"_s RET C-c"))
-  ;; The normal map binding of 'K' will override our motion map binding unless
-  ;; we undefine it.
-  (define-key evil-normal-state-map "K" nil)
-
-  ;; Having smart doc lookup is still nice, so use C-k for that and move
-  ;; kill-line over to insert mode (Which is more consistent with C-w, etc.).
-  (define-key evil-normal-state-map (kbd "C-k") 'spacemacs/evil-smart-doc-lookup)
+  ;; Emulate readline kill keys
   (define-key evil-insert-state-map (kbd "C-k") 'kill-line)
-
-  ;; Speaking of readline...
   (define-key evil-insert-state-map (kbd "C-u") 'kill-whole-line)
 
   ;; Mimic the behavior of the "r" formatoption in vim (i.e. automatically
@@ -939,11 +936,11 @@ remove the comment characters from that line."
           (forward-char)
           ;; Delete all comment-start or space characters
           (while (looking-at
-                  (concat "\\s<" ; comment-start char as per syntax table
+                  (concat "\\s<"        ; comment-start char as per syntax table
                           "\\|" (substring comment-start 0 1) ; first char of `comment-start'
                           (when (bound-and-true-p c-buffer-is-cc-mode)
-                            "\\|\\*[^/]")  ; leading '*' chars for C comments
-                          "\\|" "\\s-")) ; extra spaces
+                            "\\|\\*[^/]") ; leading '*' chars for C comments
+                          "\\|" "\\s-"))  ; extra spaces
             (delete-forward-char 1)))))
 
     (let* ((count (count-lines beg end))
@@ -1008,7 +1005,7 @@ remove the comment characters from that line."
   ;; Mimic C-w x for exchanging windows... but even better (no count required,
   ;; because ace-swap-window is interactive).
   (define-key evil-window-map (kbd "x")
-    (defalias 'evil-window-exchange (lambda () (interactive) (ace-swap-window))))
+              (defalias 'evil-window-exchange (lambda () (interactive) (ace-swap-window))))
 
   (evil-define-key-for-states evil-non-insert-states
                               (kbd "C-q") 'evil-visual-block)
@@ -1039,7 +1036,7 @@ remove the comment characters from that line."
     (global-set-key (kbd "H-M-h") 'ns-do-hide-others)
     (global-set-key (kbd "H-m") 'iconify-frame))
 
-  ;;; Theming
+;;; Theming
 
   ;; I usually use vertical splits to follow tags / call chains, so I want them
   ;; to progress left-to-right. However, I tend to use horizontal splits to
@@ -1103,20 +1100,21 @@ remove the comment characters from that line."
 
   (setq-default helm-buffers-fuzzy-matching t)
   (setq-default helm-etags-fuzzy-match t)
+  (setq-default helm-ag-use-grep-ignore-list nil)
 
   (auto-fill-mode)
 
-  ;;; Formatting
+;;; Formatting
 
-  (setq-default git-commit-summary-max-length 75)
-  (setq-default git-commit-fill-column 75)
+  ;; (setq-default git-commit-summary-max-length 75)
+  ;; (setq-default git-commit-fill-column 75)
   (setq-default comment-multi-line t)
-  (setq-default truncate-lines t)  ; Turn off word wrap
+  (setq-default truncate-lines t)       ; Turn off word wrap
 
   ;; Always re-read the tags file without prompting
   (setq-default tags-revert-without-query t)
 
-  ;;; These were taken from https://www.emacswiki.org/emacs/NoTabs#toc2
+;;; These were taken from https://www.emacswiki.org/emacs/NoTabs#toc2
 
   (defun how-many-region (begin end regexp &optional interactive)
     "Print number of non-trivial matches for REGEXP in region.
@@ -1203,7 +1201,7 @@ function name font face."
     (c-set-style "k&r")
     (setq c-default-style "k&r")
     (setq c-basic-offset 4)
-    (setq evil-shift-width 4)  ; FOR SRS
+    (setq evil-shift-width 4)           ; FOR SRS
     (setq tab-width 4)
     (setq c-label-minimum-indentation 0)
     (setq fill-column 80)
@@ -1262,29 +1260,56 @@ function name font face."
   (add-hook 'rust-mode-hook (lambda ()
                               (setq fill-column 80)
                               (setq tab-width 4)
-                              (setq evil-shift-width 4)  ; FOR SRS
+                              (setq evil-shift-width 4) ; FOR SRS
                               ))
   (add-hook 'rust-mode-hook #'racer-mode)
 
+  (add-hook 'zig-mode-hook (lambda ()
+                             (setq fill-column 80)
+                             (setq tab-width 4)
+                             (setq evil-shift-width 4))) ; FOR SRS
+
   (add-hook 'cmake-mode-hook
             (lambda ()
-              (setq tab-width 4)  ; FOR SRS
+              (setq tab-width 4)        ; FOR SRS
               (setq cmake-tab-width 4)))
+
+  (add-hook 'swift-mode-hook (lambda ()
+                               (setq fill-column 100)
+                               (setq tab-width 4)
+                               (setq evil-shift-width 4))) ; FOR SRS
+
+  (add-hook 'lsp-mode-hook (lambda ()
+                             (setq-local company-idle-delay 0.2)))
 
   (add-to-list 'auto-mode-alist '("\\(\\.m\\'\\)" . objc-mode))
   (add-to-list 'auto-mode-alist '("\\(\\.mm\\'\\)" . c++-mode))
 
   (spacemacs/toggle-evil-safe-lisp-structural-editing-on-register-hooks)
 
+  (setq-default projectile-indexing-method 'hybrid)
+
+  (setq-default lsp-file-watch-threshold nil)
+
+  (setq-default company-idle-delay nil)
+
   (require 'borealis)
   (enable-theme 'borealis)
   (set-transparent-bg)
-  (setq fci-rule-color "#afaf87")
+  ;; (setq fci-rule-color "#afaf87")
 
   ;; stolen from keybindings.el from spacemacs
-  (let ((dotfile-setting (cons dotspacemacs-active-transparency
-                               dotspacemacs-inactive-transparency)))
-    (spacemacs/enable-transparency (selected-frame) dotfile-setting))
+  ;; (let ((dotfile-setting (cons dotspacemacs-active-transparency
+  ;;                              dotspacemacs-inactive-transparency)))
+  ;;   (spacemacs/enable-transparency (selected-frame) dotfile-setting))
+
+  ;; (setq inferior-lisp-program "sbcl")
+  ;; (setq inferior-lisp-program "ccl")
+  ;; (setq inferior-lisp-program "ecl")
+
+  ;; (setq focus-follows-mouse nil)
+  ;; (setq mouse-autoselect-window 0)
+  ;; (load-file "~/.emacs.d/private/local/fennel-mode/fennel-mode.el")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
