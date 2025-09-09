@@ -191,6 +191,9 @@ command! Bd bd
 " Never use Ex mode -- I never *mean* to press it
 nnoremap Q <ESC>
 
+" More Spacemacs muscle memory
+nmap <leader>' :term<CR>
+
 set mouse=a
 
 " Fix weird 223-char terminal limit to be unlimited
