@@ -29,6 +29,9 @@ Plug 'NeogitOrg/neogit'
 
 Plug 'FabijanZulj/blame.nvim'
 
+Plug 'mrcjkb/rustaceanvim'
+Plug 'ziglang/zig.vim'
+
 call plug#end()
 
 " Load custom mappings for bufkill
@@ -40,6 +43,12 @@ let g:BufKillCreateMappings = 1
 
 syntax on
 silent! colorscheme aurora
+
+" Don't override the terminal's background color (vim can't do this, but
+" neovim can).
+if !has('gui_running')
+  hi Normal guibg=NONE
+endif
 
 set nonumber
 set cmdheight=1
@@ -338,10 +347,11 @@ set hidden  " Keep around modified buffers without having to save them
 set confirm  " Ask instead of autofailing when doing a destructive action
 ]])
 
-local lspconfig = require('lspconfig')
-lspconfig.clangd.setup {}
-lspconfig.gopls.setup { cmd = { 'gopls' } }
-lspconfig.sourcekit.setup {}
+vim.lsp.enable('clangd')
+vim.lsp.config('gopls', { cmd = { 'gopls' } })
+vim.lsp.enable('gopls')
+vim.lsp.enable('sourcekit')
+vim.lsp.enable('zls')
 
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {"*.c", "*.cpp", "*.cc", "*.h", "*.hpp", "*.hh"},
@@ -387,3 +397,45 @@ require('nvim-treesitter.configs').setup {
 
 require('neogit').setup {}
 require('blame').setup {}
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {
+    "*/llvm-project/*/*.c",
+    "*/llvm-project/*/*.cpp",
+    "*/llvm-project/*/*.cc",
+    "*/llvm-project/*/*.h",
+    "*/llvm-project/*/*.hpp",
+    "*/llvm-project/*/*.hh",
+  },
+  callback = function()
+    vim.diagnostic.enable(true)
+    vim.cmd([[
+    setlocal tabstop=2
+    setlocal shiftwidth=2
+    setlocal filetype=cpp
+    ]])
+  end,
+})
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {
+    "*/llvm-project/*/*.def",
+    "*/llvm-project/*/*.inc",
+  },
+  callback = function()
+    vim.diagnostic.enable(false)
+    vim.cmd([[
+    setlocal filetype=cpp
+    ]])
+  end,
+})
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {"*.swift"},
+  callback = function()
+    vim.cmd([[
+    setlocal textwidth=100
+    ]])
+  end,
+})
+
