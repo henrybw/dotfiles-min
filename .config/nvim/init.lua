@@ -424,7 +424,7 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     "*/llvm-project/*/*.inc",
   },
   callback = function()
-    vim.diagnostic.enable(true)
+    vim.diagnostic.enable(false)
     vim.cmd([[
     setlocal tabstop=2
     setlocal shiftwidth=2
