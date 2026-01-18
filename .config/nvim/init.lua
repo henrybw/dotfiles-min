@@ -40,6 +40,7 @@ let g:BufKillCreateMappings = 1
 
 syntax on
 silent! colorscheme aurora
+hi Normal guibg=#073761
 
 " Don't override the terminal's background color (vim can't do this, but
 " neovim can).
