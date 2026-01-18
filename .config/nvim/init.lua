@@ -214,6 +214,8 @@ let g:ftplugin_sql_omni_key = '<Plug>DisableSqlOmni'
 " Sudo save shortcut.
 cmap w!! w !sudo tee > /dev/null %
 
+map <f2> :lua vim.diagnostic.open_float()<CR>
+
 " Telescope
 nnoremap <C-p> :Telescope find_files<CR>
 nnoremap <Leader>/ :Telescope live_grep<CR>
