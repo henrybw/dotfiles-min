@@ -18,17 +18,14 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'henrybw/vim-colors-aurora'
 
 Plug 'neovim/nvim-lspconfig'
+" treesitter needs tree-sitter-cli now to compile
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-
 Plug 'sindrets/diffview.nvim'
 Plug 'NeogitOrg/neogit'
-
 Plug 'FabijanZulj/blame.nvim'
-
 Plug 'mrcjkb/rustaceanvim'
 Plug 'ziglang/zig.vim'
 
@@ -348,10 +345,61 @@ set confirm  " Ask instead of autofailing when doing a destructive action
 ]])
 
 vim.lsp.enable('clangd')
-vim.lsp.config('gopls', { cmd = { 'gopls' } })
-vim.lsp.enable('gopls')
+-- vim.lsp.config('gopls', { cmd = { 'gopls' } })
+-- vim.lsp.enable('gopls')
 vim.lsp.enable('sourcekit')
 vim.lsp.enable('zls')
+
+-- Usually a clean install of neovim will error on first launch because the
+-- below setup commands require modules from plugins, which haven't been
+-- installed yet. This automates the process of running `:PlugInstall` on first
+-- launch instead.
+local ok = pcall(require, 'neogit')
+if not ok then
+  local res = vim.cmd('PlugInstall')
+  vim.cmd('source $MYVIMRC')
+end
+
+require('neogit').setup {}
+require('blame').setup {}
+
+-- Thanks jcd! https://github.com/davisjc/dotfiles/commit/2a1336d1
+local treesitter_filetypes = {"c", "cpp", "go", "swift"}
+require('nvim-treesitter').install(treesitter_filetypes)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = treesitter_filetypes,
+  callback = function()
+    -- enable treesitter highlighting
+    vim.treesitter.start()
+
+    -- enable treesitter indentation
+    vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+  end,
+})
+
+-- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*.go",
+--   callback = function()
+--     local params = vim.lsp.util.make_range_params()
+--     params.context = {only = {"source.organizeImports"}}
+--     -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+--     -- machine and codebase, you may want longer. Add an additional
+--     -- argument after params if you find that you have to write the file
+--     -- twice for changes to be saved.
+--     -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+--     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+--     for cid, res in pairs(result or {}) do
+--       for _, r in pairs(res.result or {}) do
+--         if r.edit then
+--           local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-8"
+--           vim.lsp.util.apply_workspace_edit(r.edit, enc)
+--         end
+--       end
+--     end
+--     vim.lsp.buf.format({async = false})
+--   end
+-- })
 
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {"*.c", "*.cpp", "*.cc", "*.h", "*.hpp", "*.hh"},
@@ -361,43 +409,6 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   end,
 })
 
--- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
-    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-    -- machine and codebase, you may want longer. Add an additional
-    -- argument after params if you find that you have to write the file
-    -- twice for changes to be saved.
-    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    for cid, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-8"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
-        end
-      end
-    end
-    vim.lsp.buf.format({async = false})
-  end
-})
-
-require('nvim-treesitter.configs').setup {
-  ensure_installed = { "c", "cpp", "go", "swift" },
-  sync_install = false,
-  auto_install = false,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-}
-
-require('neogit').setup {}
-require('blame').setup {}
-
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {
     "*/llvm-project/*/*.c",
@@ -406,6 +417,8 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     "*/llvm-project/*/*.h",
     "*/llvm-project/*/*.hpp",
     "*/llvm-project/*/*.hh",
+    "*/llvm-project/*/*.def",
+    "*/llvm-project/*/*.inc",
   },
   callback = function()
     vim.diagnostic.enable(true)
@@ -418,23 +431,22 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 })
 
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = {
-    "*/llvm-project/*/*.def",
-    "*/llvm-project/*/*.inc",
-  },
+  pattern = {"*.swift"},
   callback = function()
-    vim.diagnostic.enable(false)
     vim.cmd([[
-    setlocal filetype=cpp
+    setlocal textwidth=100
     ]])
   end,
 })
 
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = {"*.swift"},
+  pattern = {
+    "*/libdragon/*",
+    "*/tiny3d/*",
+  },
   callback = function()
     vim.cmd([[
-    setlocal textwidth=100
+    DisableWhitespace
     ]])
   end,
 })
