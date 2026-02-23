@@ -11,7 +11,6 @@ Plug 'vim-scripts/closetag.vim'
 Plug 'tmhedberg/matchit'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'vim-scripts/bufkill.vim'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'ntpeters/vim-better-whitespace'
@@ -28,6 +27,7 @@ Plug 'NeogitOrg/neogit'
 Plug 'FabijanZulj/blame.nvim'
 Plug 'mrcjkb/rustaceanvim'
 Plug 'ziglang/zig.vim'
+" Plug 'lsh/tree-sitter-mojo'
 
 call plug#end()
 
@@ -350,7 +350,11 @@ set confirm  " Ask instead of autofailing when doing a destructive action
 vim.lsp.enable('clangd')
 -- vim.lsp.config('gopls', { cmd = { 'gopls' } })
 -- vim.lsp.enable('gopls')
+vim.lsp.enable('mlir_lsp_server')
+vim.lsp.enable('mlir_pdll_lsp_server')
+vim.lsp.enable('mojo')
 vim.lsp.enable('sourcekit')
+vim.lsp.enable('tblgen_lsp_server')
 vim.lsp.enable('zls')
 
 -- Usually a clean install of neovim will error on first launch because the
@@ -422,6 +426,44 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     "*/llvm-project/*/*.hh",
     "*/llvm-project/*/*.def",
     "*/llvm-project/*/*.inc",
+
+    "/opt/llvm/*/*.c",
+    "/opt/llvm/*/*.cpp",
+    "/opt/llvm/*/*.cc",
+    "/opt/llvm/*/*.h",
+    "/opt/llvm/*/*.hpp",
+    "/opt/llvm/*/*.hh",
+    "/opt/llvm/*/*.def",
+    "/opt/llvm/*/*.inc",
+
+    "*/*mlir*/*/*.c",
+    "*/*mlir*/*/*.cpp",
+    "*/*mlir*/*/*.cc",
+    "*/*mlir*/*/*.h",
+    "*/*mlir*/*/*.hpp",
+    "*/*mlir*/*/*.hh",
+    "*/*mlir*/*/*.def",
+    "*/*mlir*/*/*.inc",
+  },
+  callback = function()
+    vim.diagnostic.enable(false)
+    vim.cmd([[
+    setlocal tabstop=2
+    setlocal shiftwidth=2
+    setlocal filetype=cpp
+    ]])
+  end,
+})
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {
+    "*/julia/*/*.c",
+    "*/julia/*/*.cpp",
+    "*/julia/*/*.cc",
+    "*/julia/*/*.h",
+    "*/julia/*/*.hpp",
+    "*/julia/*/*.hh",
+    "*/julia/*/*.inc",
   },
   callback = function()
     vim.diagnostic.enable(false)
@@ -454,3 +496,13 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   end,
 })
 
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = {
+    "*.rspl",
+  },
+  callback = function()
+    vim.cmd([[
+    setlocal filetype=c
+    ]])
+  end,
+})
