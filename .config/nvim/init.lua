@@ -378,9 +378,6 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     -- enable treesitter highlighting
     vim.treesitter.start()
-
-    -- enable treesitter indentation
-    vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
   end,
 })
 
@@ -418,14 +415,14 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 
 vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   pattern = {
-    "*/llvm-project/*/*.c",
-    "*/llvm-project/*/*.cpp",
-    "*/llvm-project/*/*.cc",
-    "*/llvm-project/*/*.h",
-    "*/llvm-project/*/*.hpp",
-    "*/llvm-project/*/*.hh",
-    "*/llvm-project/*/*.def",
-    "*/llvm-project/*/*.inc",
+    "*/*llvm*/*/*.c",
+    "*/*llvm*/*/*.cpp",
+    "*/*llvm*/*/*.cc",
+    "*/*llvm*/*/*.h",
+    "*/*llvm*/*/*.hpp",
+    "*/*llvm*/*/*.hh",
+    "*/*llvm*/*/*.def",
+    "*/*llvm*/*/*.inc",
 
     "/opt/llvm/*/*.c",
     "/opt/llvm/*/*.cpp",
