@@ -424,15 +424,6 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
     "*/*llvm*/*/*.def",
     "*/*llvm*/*/*.inc",
 
-    "/opt/llvm/*/*.c",
-    "/opt/llvm/*/*.cpp",
-    "/opt/llvm/*/*.cc",
-    "/opt/llvm/*/*.h",
-    "/opt/llvm/*/*.hpp",
-    "/opt/llvm/*/*.hh",
-    "/opt/llvm/*/*.def",
-    "/opt/llvm/*/*.inc",
-
     "*/*mlir*/*/*.c",
     "*/*mlir*/*/*.cpp",
     "*/*mlir*/*/*.cc",
