@@ -12,7 +12,6 @@ Plug 'tmhedberg/matchit'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'vim-scripts/bufkill.vim'
 Plug 'tpope/vim-surround'
-Plug 'justinmk/vim-syntax-extra'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'henrybw/vim-colors-aurora'
 
